@@ -5,13 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
-/**
- * @author Gabriel Cristofolini
- * @author Gustavo Sabel
- * @author Leander Seefeld
- *
- */
 public class DashboardActivity extends Activity {
     
     public DashboardActivity() {
