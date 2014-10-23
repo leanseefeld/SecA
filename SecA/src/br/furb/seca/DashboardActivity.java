@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class DashboardActivity extends Activity {
-    
-    public DashboardActivity() {
-	// TODO Auto-generated constructor stub
-    }
 
+public class DashboardActivity extends Activity {
+	
+	public DashboardActivity() {
+		// <3 ctrl+1
+	}
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
