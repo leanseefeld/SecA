@@ -7,6 +7,10 @@ import android.view.MenuItem;
 
 
 public class DashboardActivity extends Activity {
+    
+    public DashboardActivity() {
+	// TODO Auto-generated constructor stub
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
