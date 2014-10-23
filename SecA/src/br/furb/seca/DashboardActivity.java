@@ -7,7 +7,7 @@ import android.view.MenuItem;
 
 /**
  * 
- * @author Gustavo
+ * @author Gustavo, William
  *
  */
 public class DashboardActivity extends Activity {
