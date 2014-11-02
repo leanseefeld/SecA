@@ -3,10 +3,10 @@
 
     <string name="app_name">SecA</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_desempenho">Desempenho</string>
     <string name="title_compromissos">Compromissos</string>
     <string name="title_disciplinas">Disciplinas</string>
     <string name="title_grade_horaria">Grade Horaria</string>
+    <string name="title_notas">Notas</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 

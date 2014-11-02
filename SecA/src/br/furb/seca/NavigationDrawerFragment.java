@@ -110,7 +110,10 @@ public class NavigationDrawerFragment extends Fragment {
 				android.R.id.text1, new String[] {
 						getString(R.string.title_dashboard ),
 						getString(R.string.title_grade_horaria),
-						getString(R.string.title_disciplinas) }));
+						getString(R.string.title_disciplinas),
+						getString(R.string.title_notas),
+						getString(R.string.title_compromissos),
+		}));
 		mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 		return mDrawerListView;
 	}

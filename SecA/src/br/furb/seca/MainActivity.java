@@ -41,33 +41,34 @@ public class MainActivity extends Activity implements
 	@Override
 	public void onNavigationDrawerItemSelected(int position) {
 		FragmentManager fragmentManager = getFragmentManager();
-		
+
 		Fragment newFrag;
-		
-		//TODO: substituir por switch
-		if(position == 0)
-		{
+
+		switch (position) {
+		case 1:
+			newFrag = new GradeHorariaFragment(position);
+			break;
+		case 2:
+			newFrag = new DisciplinasFragment(position);
+			break;
+		case 3:
+			newFrag = new NotasFragment(position);
+			break;
+		case 4:
+			newFrag = new CompromissosFragment(position);
+			break;
+		default:
 			newFrag = new DashboardFragment(position);
 		}
-		else if(position == 1)
-		{
-			newFrag = new GradeHorariaFragment(position);
-		}
-		else
-		{
-			newFrag = new DisciplinasFragment(position);
-		}
-		
-		fragmentManager
-				.beginTransaction()
-				.replace(R.id.container,
-						newFrag).commit();
+
+		fragmentManager.beginTransaction().replace(R.id.container, newFrag)
+				.commit();
 	}
-	
+
 	public void onSectionAttached(int number) {
 		switch (number) {
 		case 0:
-			mTitle = getString(R.string.title_dashboard );
+			mTitle = getString(R.string.title_dashboard);
 			break;
 		case 1:
 			mTitle = getString(R.string.title_grade_horaria);
