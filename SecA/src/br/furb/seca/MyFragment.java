@@ -12,14 +12,6 @@ public abstract class MyFragment extends Fragment {
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private int layoutId;
 
-	/*public static DashboardFragment newInstance(int sectionNumber) {
-		DashboardFragment fragment = new DashboardFragment();
-		Bundle args = new Bundle();
-		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-		fragment.setArguments(args);
-		return fragment;
-	}*/
-
 	public MyFragment(int layoutid, int sectionNumber) {
 		this.layoutId = layoutid;
 		Bundle args = new Bundle();
