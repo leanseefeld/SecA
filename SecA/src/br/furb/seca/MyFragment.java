@@ -12,6 +12,12 @@ public abstract class MyFragment extends Fragment {
 	private static final String ARG_SECTION_NUMBER = "section_number";
 	private int layoutId;
 
+	public MyFragment(int layoutid)
+	{
+		this.layoutId = layoutid;
+	}
+	
+	
 	public MyFragment(int layoutid, int sectionNumber) {
 		this.layoutId = layoutid;
 		Bundle args = new Bundle();
