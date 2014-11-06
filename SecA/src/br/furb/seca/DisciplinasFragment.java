@@ -20,7 +20,7 @@ public class DisciplinasFragment extends MyFragment {
 	private ListView listDisciplinas;
 	
 	public DisciplinasFragment() {
-		super(R.layout.fragment_dashboard);
+		super(R.layout.fragment_disciplinas);
 	}
 
 	public DisciplinasFragment(int sectionNumber) {
@@ -33,7 +33,6 @@ public class DisciplinasFragment extends MyFragment {
 		View v = super.onCreateView(inflater, container, savedInstanceState);
 		
 		listDisciplinas = (ListView)v.findViewById(R.id.disciplinas);
-		
 		atualizaDisciplinas(v.getContext());
 		
 		return v;
@@ -47,7 +46,6 @@ public class DisciplinasFragment extends MyFragment {
 				android.R.layout.simple_list_item_2, 
 				from, to);
 		
-		//Ta dando pau nessa p#$# quando vira atela :)
 		listDisciplinas.setAdapter(adapter);
 	}
 	
