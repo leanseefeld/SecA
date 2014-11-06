@@ -5,5 +5,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="navigation_drawer_width">240dp</dimen>
+    <dimen name="disciplina_item_padding">5dp</dimen>
+    <dimen name="disciplina_item_disciplina_font_size">20dp</dimen>
+    <dimen name="disciplina_item_nota_tamanho">25dp</dimen>
 
 </resources>

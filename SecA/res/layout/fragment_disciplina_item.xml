@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="5dp"
+    android:background="#FFFFFF"
+    android:orientation="vertical"
+    android:id="@+id/disciplina_list_item" >
+
+    <TextView
+        android:id="@+id/txtDisciplina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:paddingStart="@dimen/disciplina_item_padding"
+        android:paddingEnd="40dp"
+        android:paddingTop="@dimen/disciplina_item_padding"
+        android:text="Sistemas Distribuídos"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="@dimen/disciplina_item_disciplina_font_size" />
+
+    <TextView
+        android:id="@+id/txtNota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/txtProfessor"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:paddingEnd="@dimen/disciplina_item_padding"
+        android:paddingStart="@dimen/disciplina_item_padding"
+        android:paddingTop="@dimen/disciplina_item_padding"
+        android:text="10.0"
+        android:textAlignment="center"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/disciplina_item_nota_tamanho" />
+
+    <TextView
+        android:id="@+id/txtProfessor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtDisciplina"
+        android:layout_centerHorizontal="true"
+        android:paddingEnd="40dp"
+        android:paddingBottom="@dimen/disciplina_item_padding"
+        android:paddingStart="@dimen/disciplina_item_padding"
+        android:text="Paulo Fernando da Silva"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#505050" />
+
+</RelativeLayout>
