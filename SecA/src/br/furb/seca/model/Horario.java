@@ -2,20 +2,25 @@ package br.furb.seca.model;
 
 public class Horario {
 
-	private Disciplina disciplina;
-	private Periodo periodoInicio;
-	private Periodo periodoFim;
-	
-	public Horario() {
-		
+	public Horario(Disciplina disciplina, Periodo inicio, Periodo fim) {
+		this.disciplina = disciplina;
+		this.inicio = inicio;
+		this.fim = fim;
 	}
+
+	private Disciplina disciplina;
+	private Periodo inicio;
+	private Periodo fim;
 
 	public Disciplina getDisciplina() {
 		return disciplina;
 	}
 
-	public void setDisciplina(Disciplina disciplina) {
-		this.disciplina = disciplina;
+	public Periodo getInicio() {
+		return inicio;
 	}
 
+	public Periodo getFim() {
+		return fim;
+	}
 }
