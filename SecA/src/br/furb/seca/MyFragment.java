@@ -9,35 +9,30 @@ import android.view.ViewGroup;
 
 public abstract class MyFragment extends Fragment {
 
-	private static final String ARG_SECTION_NUMBER = "section_number";
-	private int layoutId;
+    private static final String ARG_SECTION_NUMBER = "section_number";
+    private int layoutId;
 
-	public MyFragment(int layoutid)
-	{
-		this.layoutId = layoutid;
-	}
-	
-	
-	public MyFragment(int layoutid, int sectionNumber) {
-		this.layoutId = layoutid;
-		Bundle args = new Bundle();
-		args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-		this.setArguments(args);
-	}
+    public MyFragment(int layoutid) {
+	this.layoutId = layoutid;
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View rootView = inflater.inflate(this.layoutId, container,
-				false);
-		return rootView;
-	}
+    public MyFragment(int layoutid, int sectionNumber) {
+	this.layoutId = layoutid;
+	Bundle args = new Bundle();
+	args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+	this.setArguments(args);
+    }
 
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		((MainActivity) activity).onSectionAttached(getArguments().getInt(
-				ARG_SECTION_NUMBER));
-	}
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	View rootView = inflater.inflate(this.layoutId, container, false);
+	return rootView;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+	super.onAttach(activity);
+	((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+    }
 
 }
