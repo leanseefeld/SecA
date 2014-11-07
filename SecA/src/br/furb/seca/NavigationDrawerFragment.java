@@ -19,11 +19,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 /**
- * Fragment used for managing interactions for and presentation of a navigation
- * drawer. See the <a href=
- * "https://developer.android.com/design/patterns/navigation-drawer.html#Interaction"
- * > design guidelines</a> for a complete explanation of the behaviors
- * implemented here.
+ * Fragment used for managing interactions for and presentation of a navigation drawer. See the <a
+ * href= "https://developer.android.com/design/patterns/navigation-drawer.html#Interaction" > design
+ * guidelines</a> for a complete explanation of the behaviors implemented here.
  */
 public class NavigationDrawerFragment extends Fragment {
 
@@ -33,8 +31,8 @@ public class NavigationDrawerFragment extends Fragment {
     private static final String STATE_SELECTED_POSITION = "selected_navigation_drawer_position";
 
     /**
-     * Per the design guidelines, you should show the drawer on launch until the
-     * user manually expands it. This shared preference tracks this.
+     * Per the design guidelines, you should show the drawer on launch until the user manually
+     * expands it. This shared preference tracks this.
      */
     private static final String PREF_USER_LEARNED_DRAWER = "navigation_drawer_learned";
 
@@ -90,6 +88,7 @@ public class NavigationDrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 	mDrawerListView = (ListView) inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
 	mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
 	    @Override
 	    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		selectItem(position);
@@ -109,8 +108,7 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     /**
-     * Users of this fragment must call this method to set up the navigation
-     * drawer interactions.
+     * Users of this fragment must call this method to set up the navigation drawer interactions.
      * 
      * @param fragmentId
      *            The android:id of this fragment in its activity's layout.
@@ -132,21 +130,19 @@ public class NavigationDrawerFragment extends Fragment {
 
 	// ActionBarDrawerToggle ties together the the proper interactions
 	// between the navigation drawer and the action bar app icon.
-	mDrawerToggle = new ActionBarDrawerToggle(getActivity(), /*
-								  * host
-								  * Activity
-								  */
+	mDrawerToggle = new ActionBarDrawerToggle(getActivity(), /* host Activity */
 	mDrawerLayout, /* DrawerLayout object */
 	R.drawable.ic_drawer, /* nav drawer image to replace 'Up' caret */
 	R.string.navigation_drawer_open, /*
-					  * "open drawer" description for
-					  * accessibility
-					  */
+					 			 * "open drawer" description for
+					 			 * accessibility
+					 			 */
 	R.string.navigation_drawer_close /*
-					  * "close drawer" description for
-					  * accessibility
-					  */
+					 			 * "close drawer" description for
+					 			 * accessibility
+					 			 */
 	) {
+
 	    @Override
 	    public void onDrawerClosed(View drawerView) {
 		super.onDrawerClosed(drawerView);
@@ -188,6 +184,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 	// Defer code dependent on restoration of previous instance state.
 	mDrawerLayout.post(new Runnable() {
+
 	    @Override
 	    public void run() {
 		mDrawerToggle.syncState();
@@ -239,15 +236,18 @@ public class NavigationDrawerFragment extends Fragment {
 	mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /*
-     * @Override public void onCreateOptionsMenu(Menu menu, MenuInflater
-     * inflater) { // If the drawer is open, show the global app actions in the
-     * action bar. // See also // showGlobalContextActionBar, which controls the
-     * top-left area of the // action bar. if (mDrawerLayout != null &&
-     * isDrawerOpen()) { inflater.inflate(R.menu.global, menu);
-     * showGlobalContextActionBar(); } super.onCreateOptionsMenu(menu,
-     * inflater); }
-     */
+    /*@Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    	// If the drawer is open, show the global app actions in the action bar.
+    	// See also
+    	// showGlobalContextActionBar, which controls the top-left area of the
+    	// action bar.
+    	if (mDrawerLayout != null && isDrawerOpen()) {
+    		inflater.inflate(R.menu.global, menu);
+    		showGlobalContextActionBar();
+    	}
+    	super.onCreateOptionsMenu(menu, inflater);
+    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -255,19 +255,18 @@ public class NavigationDrawerFragment extends Fragment {
 	    return true;
 	}
 
-	/*
-	 * if (item.getItemId() == R.id.action_example) {
-	 * Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT)
-	 * .show(); return true; }
-	 */
+	/*if (item.getItemId() == R.id.action_example) {
+		Toast.makeText(getActivity(), "Example action.", Toast.LENGTH_SHORT)
+				.show();
+		return true;
+	}*/
 
 	return super.onOptionsItemSelected(item);
     }
 
     /**
-     * Per the navigation drawer design guidelines, updates the action bar to
-     * show the global app 'context', rather than just what's in the current
-     * screen.
+     * Per the navigation drawer design guidelines, updates the action bar to show the global app
+     * 'context', rather than just what's in the current screen.
      */
     private void showGlobalContextActionBar() {
 	ActionBar actionBar = getActionBar();
@@ -281,10 +280,10 @@ public class NavigationDrawerFragment extends Fragment {
     }
 
     /**
-     * Callbacks interface that all activities using this fragment must
-     * implement.
+     * Callbacks interface that all activities using this fragment must implement.
      */
     public static interface NavigationDrawerCallbacks {
+
 	/**
 	 * Called when an item in the navigation drawer is selected.
 	 */
