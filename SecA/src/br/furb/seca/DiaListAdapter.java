@@ -52,7 +52,7 @@ public class DiaListAdapter extends ArrayAdapter<DiaSemana> {
 		
 		HorarioListAdapter adapter = new HorarioListAdapter(row.getContext(),
 				diaSemana.getHorarios());
-		
+
 		listViewHorarios.setAdapter(adapter);
 
 		return row;

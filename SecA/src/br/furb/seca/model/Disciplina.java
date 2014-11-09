@@ -3,15 +3,15 @@ package br.furb.seca.model;
 public class Disciplina {
 
 	private Professor professor;
-	private String descricao;
+	private String nome;
 
-	public Disciplina(String descricao, Professor prof) {
-		this.descricao = descricao;
+	public Disciplina(String nome, Professor prof) {
+		this.nome = nome;
 		this.professor = prof;
 	}
 	
-	public String getDescricao() {
-		return descricao;
+	public String getNome() {
+		return nome;
 	}
 
 	public Professor getProfessor() {
@@ -20,6 +20,6 @@ public class Disciplina {
 	
 	@Override
 	public String toString() {
-		return descricao;
+		return nome;
 	}
 }

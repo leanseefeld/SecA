@@ -3,6 +3,7 @@ package br.furb.seca;
 import java.util.ArrayList;
 import java.util.List;
 
+import br.furb.seca.controller.Controller;
 import br.furb.seca.model.DiaSemana;
 import br.furb.seca.model.Disciplina;
 import br.furb.seca.model.Horario;
@@ -19,6 +20,7 @@ import android.widget.ListView;
 public class GradeHorariaFragment extends MyFragment {
 
 	private ListView ListViewDiasSemana;
+	private Controller controller;
 
 	public GradeHorariaFragment() {
 		super(R.layout.fragment_grade_horaria);
@@ -27,20 +29,25 @@ public class GradeHorariaFragment extends MyFragment {
 	public GradeHorariaFragment(int sectionNumber) {
 		super(R.layout.fragment_grade_horaria, sectionNumber);
 	}
+	
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View v = super.onCreateView(inflater, container, savedInstanceState);
+		controller = new Controller(v.getContext());
+		
 		ListViewDiasSemana = (ListView) v.findViewById(R.id.dias_semana);
 		ListViewDiasSemana.setAdapter(new DiaListAdapter(v.getContext(),
 				listarDiasSemana()));
-
+		
 		return v;
 	}
 
 	public List<DiaSemana> listarDiasSemana()
 	{
+		return controller.buscarHorarios();
+		/*
 		List<DiaSemana> diaSemana = new ArrayList<DiaSemana>();
 		
 		Professor proEveraldo = new Professor("Everaldo Artur Grahl");
@@ -55,29 +62,29 @@ public class GradeHorariaFragment extends MyFragment {
 		Disciplina disAndroid = new Disciplina("Android", proJhony);
 		Disciplina disBancoDad = new Disciplina("Banco de Dados II", proCaludio);
 		
-		DiaSemana dia = new DiaSemana("Segunda feira");
+		DiaSemana dia = new DiaSemana(2);
 		dia.addHorario(new Horario(disProcSoft, Periodo._12, Periodo._13));
 		dia.addHorario(new Horario(disCompOrga, Periodo._14, Periodo._15));
 		diaSemana.add(dia);
 		
-		dia = new DiaSemana("Terça feira");
+		dia = new DiaSemana(3);
 		dia.addHorario(new Horario(disSistDist, Periodo._12, Periodo._13));
 		dia.addHorario(new Horario(disProcSoft, Periodo._14, Periodo._15));
 		diaSemana.add(dia);
 		
-		dia = new DiaSemana("Quarta feira");
+		dia = new DiaSemana(4);
 		dia.addHorario(new Horario(disCompOrga, Periodo._12, Periodo._13));
 		dia.addHorario(new Horario(disSistDist, Periodo._14, Periodo._15));
 		diaSemana.add(dia);
 		
-		dia = new DiaSemana("Quinta feira");
+		dia = new DiaSemana(5);
 		dia.addHorario(new Horario(disAndroid, Periodo._12, Periodo._15));
 		diaSemana.add(dia);
 		
-		dia = new DiaSemana("Sexta feira");
+		dia = new DiaSemana(6);
 		dia.addHorario(new Horario(disBancoDad, Periodo._12, Periodo._15));
 		diaSemana.add(dia);
 		
-		return diaSemana;
+		return diaSemana;*/
 	}
 }
