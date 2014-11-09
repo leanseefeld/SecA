@@ -2,26 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0000F0"
+    android:background="#FFFF90"
     android:layout_margin="3dp"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/disciplina"
+        android:id="@+id/horario_disciplina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Disciplina"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/professor"
+        android:id="@+id/horario_professor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Professor"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/horario"
+        android:id="@+id/horario_horario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Periodo"

@@ -5,17 +5,32 @@ import java.util.List;
 
 public class DiaSemana {
 
-    private List<Horario> horarios;
+	private List<Horario> horarios;
+	private String descricao;
 
-    public DiaSemana() {
-	horarios = new ArrayList<Horario>();
-    }
+	public DiaSemana(String descricao) {
+		this.horarios = new ArrayList<Horario>();
+		this.descricao = descricao;
+	}
 
-    public List<Horario> getHorarios() {
-	return horarios;
-    }
+	public String getDescricao() {
+		return descricao;
+	}
 
-    public void setHorarios(List<Horario> horarios) {
-	this.horarios = horarios;
-    }
+	public List<Horario> getHorarios() {
+		return horarios;
+	}
+
+	public void setHorarios(List<Horario> horarios) {
+		this.horarios = horarios;
+	}
+
+	public void addHorario(Horario hor) {
+		this.horarios.add(hor);
+	}
+
+	@Override
+	public String toString() {
+		return this.getDescricao();
+	}
 }
