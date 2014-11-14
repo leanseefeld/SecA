@@ -7,6 +7,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import br.furb.seca.model.Compromisso;
 import br.furb.seca.model.DatabaseHelper;
 import br.furb.seca.model.DiaSemana;
 import br.furb.seca.model.Disciplina;
@@ -140,4 +141,25 @@ public class Controller {
 		values.put("nrDiaSemana", dia);
 		db.insert("HORARIO", null, values);
 	}
+
+	public List<Compromisso> BuscarCompromissos(Disciplina disciplina)
+	{
+		throw new UnsupportedOperationException("Não implementado ainda :)");
+	}
+	
+	public void GravarCompromisso(Compromisso compromisso)
+	{
+		if(compromisso.get_id() == 0)
+		{
+			//gravar
+		}
+		else
+		{
+			//alterar
+		}
+		
+		throw new UnsupportedOperationException("Não implementado ainda :)");
+	}
+	
+	
 }
