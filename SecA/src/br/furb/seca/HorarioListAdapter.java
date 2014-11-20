@@ -55,7 +55,7 @@ public class HorarioListAdapter extends ArrayAdapter<Horario> {
 		txtProfessor.setText(horario.getDisciplina().getProfessor().getNome());
 
 		TextView txtHorario = (TextView) row.findViewById(R.id.horario_horario);
-		txtHorario.setText(horario.Periodo());
+		txtHorario.setText(horario.getPeriodo());
 
 		return row;
 	}
