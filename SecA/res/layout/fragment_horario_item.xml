@@ -2,29 +2,43 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFF90"
-    android:layout_margin="3dp"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/horario_disciplina"
-        android:layout_width="wrap_content"
+        android:id="@+id/separator"
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Disciplina"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_marginTop="5dp"
+        android:textSize="20sp"
+        android:text="Segunda Feira" />
 
-    <TextView
-        android:id="@+id/horario_professor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Professor"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFC4"
+        android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/horario_horario"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Periodo"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        <TextView
+            android:id="@+id/horario_disciplina"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Disciplina"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/horario_professor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Professor"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/horario_horario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Periodo"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
 
 </LinearLayout>

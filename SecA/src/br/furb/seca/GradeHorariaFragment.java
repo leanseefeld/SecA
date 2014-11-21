@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.furb.seca.controller.Controller;
-import br.furb.seca.model.DiaSemana;
 import br.furb.seca.model.Disciplina;
 import br.furb.seca.model.Horario;
 import br.furb.seca.model.Periodo;
@@ -31,20 +30,7 @@ public class GradeHorariaFragment extends MyFragment {
 	}
 	
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		View v = super.onCreateView(inflater, container, savedInstanceState);
-		controller = new Controller(v.getContext());
-		
-		ListViewDiasSemana = (ListView) v.findViewById(R.id.dias_semana);
-		ListViewDiasSemana.setAdapter(new DiaListAdapter(v.getContext(),
-				listarDiasSemana()));
-		
-		return v;
-	}
-
-	public List<DiaSemana> listarDiasSemana()
+	public List<Horario> listarHorarios()
 	{
 		return controller.buscarHorarios();
 		/*
@@ -86,5 +72,18 @@ public class GradeHorariaFragment extends MyFragment {
 		diaSemana.add(dia);
 		
 		return diaSemana;*/
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View v = super.onCreateView(inflater, container, savedInstanceState);
+		controller = new Controller(v.getContext());
+		
+		ListViewDiasSemana = (ListView) v.findViewById(R.id.dias_semana);
+		ListViewDiasSemana.setAdapter(new HorarioListAdapter(v.getContext(),
+				listarHorarios()));
+		
+		return v;
 	}
 }
