@@ -5,8 +5,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="navigation_drawer_width">240dp</dimen>
-    <dimen name="disciplina_item_padding">10dp</dimen>
-    <dimen name="disciplina_item_disciplina_font_size">20dp</dimen>
-    <dimen name="disciplina_item_nota_tamanho">30dp</dimen>
+    <dimen name="disciplina_item_padding">7dp</dimen>
+    <dimen name="disciplina_item_notaPaddingTop">10dp</dimen>
+    <dimen name="disciplina_item_disciplinaFontSize">20dp</dimen>
+    <dimen name="disciplina_item_professorFontSize">18dp</dimen>
+    <dimen name="disciplina_item_notaSize">30dp</dimen>
+    <dimen name="disciplina_item_notaWidth">80dp</dimen>
 
 </resources>

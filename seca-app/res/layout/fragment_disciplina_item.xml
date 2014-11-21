@@ -1,54 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/disciplina_list_item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:background="#FFFFFF"
+    android:background="@color/cor_branca"
     android:orientation="vertical"
-    android:id="@+id/disciplina_list_item" >
+    android:paddingBottom="5dp"
+    android:paddingEnd="5dp"
+    android:paddingStart="0dp"
+    android:paddingTop="5dp" >
+
+    <TextView
+        android:id="@+id/frDisciplinas_item_txtNota"
+        android:layout_width="@dimen/disciplina_item_notaWidth"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/frDisciplinas_item_txtProfessor"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/frDisciplinas_item_txtDisciplina"
+        android:gravity="top|center"
+        android:paddingBottom="@dimen/disciplina_item_padding"
+        android:paddingEnd="@dimen/disciplina_item_padding"
+        android:paddingStart="@dimen/disciplina_item_padding"
+        android:paddingTop="@dimen/disciplina_item_notaPaddingTop"
+        android:text="10.0"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="@dimen/disciplina_item_notaSize" />
 
     <TextView
         android:id="@+id/frDisciplinas_item_txtDisciplina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:paddingEnd="45dp"
-        android:paddingStart="@dimen/disciplina_item_padding"
+        android:layout_toEndOf="@+id/frDisciplinas_item_txtNota"
         android:paddingTop="@dimen/disciplina_item_padding"
         android:text="nome completo da disciplina"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="@dimen/disciplina_item_disciplina_font_size" />
-
-    <TextView
-        android:id="@+id/frDisciplinas_item_txtNota"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/frDisciplinas_item_txtProfessor"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/frDisciplinas_item_txtDisciplina"
-        android:background="@color/cor_branca"
-        android:gravity="center"
-        android:paddingEnd="@dimen/disciplina_item_padding"
-        android:paddingStart="@dimen/disciplina_item_padding"
-        android:paddingTop="@dimen/disciplina_item_padding"
-        android:text="0.0"
-        android:textAlignment="center"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="@dimen/disciplina_item_nota_tamanho" />
+        android:textSize="@dimen/disciplina_item_disciplinaFontSize" />
 
     <TextView
         android:id="@+id/frDisciplinas_item_txtProfessor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/frDisciplinas_item_txtDisciplina"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
+        android:layout_toEndOf="@+id/frDisciplinas_item_txtNota"
         android:paddingBottom="@dimen/disciplina_item_padding"
-        android:paddingEnd="45dp"
-        android:paddingStart="@dimen/disciplina_item_padding"
         android:text="nome completo do professor"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#505050" />
+        android:textColor="#505050"
+        android:textSize="@dimen/disciplina_item_professorFontSize" />
 
 </RelativeLayout>
