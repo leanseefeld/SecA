@@ -10,41 +10,35 @@ import android.widget.TextView;
 
 public class DisciplinaListAdapter extends ArrayAdapter<String[]> {
 
-	private final LayoutInflater inflater;
-	private final List<String[]> disciplinas;
+    private final LayoutInflater inflater;
+    private final List<String[]> disciplinas;
 
-	public DisciplinaListAdapter(Context context, int resource,
-			List<String[]> disciplinas) {
-		super(context, resource, disciplinas);
-		this.disciplinas = disciplinas;
-		inflater = (LayoutInflater) context
-				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	}
+    public DisciplinaListAdapter(Context context, int resource, List<String[]> disciplinas) {
+	super(context, resource, disciplinas);
+	this.disciplinas = disciplinas;
+	inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 
-	@Override
-	public View getDropDownView(int position, View convertView, ViewGroup parent) {
-		return getCustomView(position, convertView, parent);
-	}
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+	return getCustomView(position, convertView, parent);
+    }
 
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		return getCustomView(position, convertView, parent);
-	}
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent) {
+	return getCustomView(position, convertView, parent);
+    }
 
-	public View getCustomView(int position, View converView, ViewGroup parent) {
-		View row = inflater.inflate(R.layout.fragment_disciplina_item, parent,
-				false);
-		String[] disciplina = disciplinas.get(position);
-		TextView txtDisciplina = (TextView) row
-				.findViewById(R.id.frDisciplinas_item_txtDisciplina);
-		txtDisciplina.setText(disciplina[0]);
-		TextView txtProfessor = (TextView) row
-				.findViewById(R.id.frDisciplinas_item_txtProfessor);
-		txtProfessor.setText(disciplina[1]);
-		TextView txtNota = (TextView) row
-				.findViewById(R.id.frDisciplinas_item_txtNota);
-		txtNota.setText(disciplina[2]);
-		return row;
-	}
+    public View getCustomView(int position, View converView, ViewGroup parent) {
+	View row = inflater.inflate(R.layout.fragment_disciplina_item, parent, false);
+	String[] disciplina = disciplinas.get(position);
+	TextView txtDisciplina = (TextView) row.findViewById(R.id.frDisciplinas_item_txtDisciplina);
+	txtDisciplina.setText(disciplina[0]);
+	TextView txtProfessor = (TextView) row.findViewById(R.id.frDisciplinas_item_txtProfessor);
+	txtProfessor.setText(disciplina[1]);
+	TextView txtNota = (TextView) row.findViewById(R.id.frDisciplinas_item_txtNota);
+	txtNota.setText(disciplina[2]);
+	return row;
+    }
 
 }
