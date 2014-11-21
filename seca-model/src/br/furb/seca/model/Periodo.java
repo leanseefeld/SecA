@@ -7,7 +7,7 @@ public enum Periodo {
     _3("09:30", "10:20"), //
     _4("10:20", "11:10"), //
     _5("11:10", "12:00"), //
-    // não tem o 6
+    _6("12:00", "13:30"), // oficialmente, não tem o 6
     _7("13:30", "14:20"), //
     _8("14:20", "15:10"), //
     _9("15:30", "16:20"), //
@@ -32,5 +32,13 @@ public enum Periodo {
 
     public String getInicio() {
 	return inicio;
+    }
+
+    public static Periodo fromCodigo(int periodo) {
+	Periodo[] values = Periodo.values();
+	if (periodo > 0 && periodo <= values.length) {
+	    return values[periodo - 1];
+	}
+	return values[0];
     }
 }

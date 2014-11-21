@@ -6,59 +6,57 @@ import java.util.List;
 
 public class Compromisso {
 
-    private int _id;
+    private int codigo;
     private String descricao;
+    private String titulo;
     private Date dataInicio;
-    private Date dataFinal;
-    private List<Date> lembretes;
+    private Date dataFim;
+    private boolean isDiaTodo;
+    private final List<Integer> lembretes;
     private Disciplina disciplina;
 
     public Compromisso() {
-	this.lembretes = new ArrayList<Date>();
+	this.lembretes = new ArrayList<>();
     }
 
     public String getDescricao() {
 	return descricao;
     }
 
-    public void setDescricao(String descricao) {
-	this.descricao = descricao;
+    public String getTitulo() {
+	return titulo;
     }
 
     public Date getDataInicio() {
 	return dataInicio;
     }
 
-    public void setDataInicio(Date dataInicio) {
-	this.dataInicio = dataInicio;
+    public Date getDataFim() {
+	return dataFim;
     }
 
-    public Date getDataFinal() {
-	return dataFinal;
-    }
-
-    public void setDataFinal(Date dataFinal) {
-	this.dataFinal = dataFinal;
-    }
-
-    public void addLembrete(Date lembrete) {
-	this.lembretes.add(lembrete);
+    public void addLembrete(Integer minutosAntecedencia) {
+	this.lembretes.add(minutosAntecedencia);
     }
 
     public Disciplina getDisciplina() {
 	return disciplina;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-	this.disciplina = disciplina;
+    public int getCodigo() {
+	return codigo;
     }
 
-    public int get_id() {
-	return _id;
-    }
-
-    public void set_id(int _id) {
-	this._id = _id;
+    /**
+     * Verifica se o compromisso é de dia inteiro.<br>
+     * Em caso afirmativo, o {@code Date} retornado nos métodos {@link #getDataInicio()} e
+     * {@link #getDataFim()} levam em consideração a hora informada. Caso contrário, a hora do dia
+     * deve ser desconsiderada.
+     * 
+     * @return {@code true} se o compromisso é de dia inteiro
+     */
+    public boolean isDiaTodo() {
+	return isDiaTodo;
     }
 
 }

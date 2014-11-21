@@ -8,9 +8,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import br.furb.seca.model.Compromisso;
 import br.furb.seca.model.DatabaseHelper;
+import br.furb.seca.model.DiaSemana;
 import br.furb.seca.model.Disciplina;
 import br.furb.seca.model.Horario;
-import br.furb.seca.model.Professor;
 
 public class Controller {
 
@@ -22,7 +22,6 @@ public class Controller {
 
     public List<Horario> buscarHorarios() {
 	List<Horario> dias = new ArrayList<Horario>();
-	int index;
 	SQLiteDatabase db = dbHelper.getReadableDatabase();
 
 	StringBuilder builder = new StringBuilder();
@@ -37,8 +36,8 @@ public class Controller {
 	cursor.moveToFirst();
 	while (cursor.isAfterLast() == false) {
 	    Horario hor = new Horario();
-	    hor.setDiaSemana(cursor.getInt(3));
-	    hor.setDisciplina(new Disciplina(cursor.getString(1), new Professor(cursor.getString(0))));
+	    hor.setDiaSemana(DiaSemana.fromCodigo(cursor.getInt(3)));
+	    hor.setDisciplina(new Disciplina(cursor.getString(1), cursor.getString(0)));
 	    hor.setPeriodo(cursor.getInt(2));
 	    hor.setSala(cursor.getString(4));
 
@@ -155,10 +154,10 @@ public class Controller {
     }
 
     public void gravarCompromisso(Compromisso compromisso) {
-	if (compromisso.get_id() == 0) {
-	    // gravar
+	if (compromisso.getCodigo() == 0) {
+	    // TODO: gravar
 	} else {
-	    // alterar
+	    // TODO: alterar
 	}
 
 	throw new UnsupportedOperationException("Não implementado ainda :)");
