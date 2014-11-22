@@ -8,7 +8,7 @@ public class Disciplina {
     private int codigo;
     private String nomeProfessor;
     private String nome;
-    private final List<Float> notas = new ArrayList<>(4); // provas
+    private final List<Prova> provas = new ArrayList<>(5);
 
     public Disciplina(String nome, String nomeProfessor) {
 	this.nome = nome;
@@ -27,12 +27,12 @@ public class Disciplina {
 	return codigo;
     }
 
-    public List<Float> getNotas() {
-	return notas;
+    public List<Prova> getProvas() {
+	return provas;
     }
 
-    public void addNota(Float nota) {
-	this.notas.add(nota);
+    public void addProva(Prova prova) {
+	this.provas.add(prova);
     }
 
     @Override
