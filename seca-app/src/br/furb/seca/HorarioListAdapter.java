@@ -1,6 +1,8 @@
 package br.furb.seca;
 
 import java.util.List;
+import java.util.Map;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,86 +11,99 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import br.furb.seca.model.Horario;
 
-public class HorarioListAdapter extends ArrayAdapter<Horario> {
+public class HorarioListAdapter extends ArrayAdapter<Map<String, String>> {
 
-    private static final int SECTIONED_STATE = 1;
-    private static final int REGULAR_STATE = 2;
-    private int[] mRowStates;
+	private static final int SECTIONED_STATE = 1;
+	private static final int REGULAR_STATE = 2;
+	private int[] mRowStates;
 
-    private final List<Horario> horarios;
-    private final LayoutInflater inflater;
+	private final List<Map<String, String>> horarios;
+	private final LayoutInflater inflater;
 
-    public HorarioListAdapter(Context context, List<Horario> horarios) {
-	super(context, R.layout.fragment_horario_item, horarios);
+	public HorarioListAdapter(Context context,
+			List<Map<String, String>> horarios) {
+		super(context, R.layout.fragment_horario_item, horarios);
 
-	this.horarios = horarios;
-	inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-	mRowStates = new int[horarios.size()];
-    }
+		this.horarios = horarios;
+		inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		mRowStates = new int[horarios.size()];
+	}
 
-    @Override
-    public View getDropDownView(int position, View convertView, ViewGroup parent) {
-	return getCustomView(position, convertView, parent);
-    }
+	@Override
+	public View getDropDownView(int position, View convertView, ViewGroup parent) {
+		return getCustomView(position, convertView, parent);
+	}
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-	return getCustomView(position, convertView, parent);
-    }
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+		return getCustomView(position, convertView, parent);
+	}
 
-    public View getCustomView(int position, View converView, ViewGroup parent) {
-	View row = inflater.inflate(R.layout.fragment_horario_item, parent, false);
+	public View getCustomView(int position, View converView, ViewGroup parent) {
+		View row = inflater.inflate(R.layout.fragment_horario_item, parent,
+				false);
 
-	boolean showSeparator = false;
+		boolean showSeparator = false;
 
-	Horario horario = horarios.get(position);
+		Map<String, String> horario = horarios.get(position);
 
-	TextView txtDisciplina = (TextView) row.findViewById(R.id.horario_disciplina);
-	txtDisciplina.setText(horario.getDisciplina().getNome());
+		TextView txtDisciplina = (TextView) row
+				.findViewById(R.id.horario_disciplina);
+		txtDisciplina.setText(horario.get("disciplina"));
 
-	TextView txtProfessor = (TextView) row.findViewById(R.id.horario_professor);
-	txtProfessor.setText(horario.getDisciplina().getNomeProfessor());
+		TextView txtProfessor = (TextView) row
+				.findViewById(R.id.horario_professor);
+		txtProfessor.setText(horario.get("professor"));
 
-	TextView txtHorario = (TextView) row.findViewById(R.id.horario_horario);
-	txtHorario.setText(horario.getPeriodo().getInicio() + " - " + horario.getPeriodo().getFim());
+		TextView txtHorario = (TextView) row.findViewById(R.id.horario_horario);
+		txtHorario.setText(horario.get("horarioInicio") + " - "
+				+ horario.get("horarioFim"));
 
-	switch (mRowStates[position]) {
+		TextView txtSala = (TextView) row
+				.findViewById(R.id.sala);
+		txtSala.setText(horario.get("sala"));
+		
+		String dia = horario.get("dia");
 
-	    case SECTIONED_STATE:
-		showSeparator = true;
-		break;
+		switch (mRowStates[position]) {
 
-	    case REGULAR_STATE:
-		showSeparator = false;
-		break;
-
-	    default:
-
-		if (position == 0) {
-		    showSeparator = true;
-		} else {
-
-		    if (horarios.get(position - 1).getDiaSemana() != horario.getDiaSemana()) {
+		case SECTIONED_STATE:
 			showSeparator = true;
-		    } else {
+			break;
+
+		case REGULAR_STATE:
 			showSeparator = false;
-		    }
+			break;
+
+		default:
+
+			if (position == 0) {
+				showSeparator = true;
+			} else {
+
+				if (!horarios.get(position - 1).get("dia").equals(dia)) {
+					showSeparator = true;
+				} else {
+					showSeparator = false;
+				}
+			}
+
+			// Cache it
+			mRowStates[position] = showSeparator ? SECTIONED_STATE
+					: REGULAR_STATE;
+
+			break;
 		}
 
-		// Cache it
-		mRowStates[position] = showSeparator ? SECTIONED_STATE : REGULAR_STATE;
+		TextView txtSeparador = (TextView) row.findViewById(R.id.separator);
+		if (showSeparator) {
+			txtSeparador.setText(dia);
+			txtSeparador.setVisibility(View.VISIBLE);
+		} else {
+			txtSeparador.setVisibility(View.GONE);
+		}
 
-		break;
+		return row;
 	}
-
-	TextView txtSeparador = (TextView) row.findViewById(R.id.separator);
-	if (showSeparator) {
-	    txtSeparador.setText(horario.getDescricaoDiaSemana());
-	    txtSeparador.setVisibility(View.VISIBLE);
-	} else {
-	    txtSeparador.setVisibility(View.GONE);
-	}
-
-	return row;
-    }
 }
