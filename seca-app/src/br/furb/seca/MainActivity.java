@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import br.furb.seca.controller.Controller;
@@ -43,6 +44,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	FragmentManager fragmentManager = getFragmentManager();
 
 	Fragment newFrag;
+	boolean isDashboard = false;
 
 	switch (position) {
 	    case 1:
@@ -59,9 +61,17 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 		break;
 	    default:
 		newFrag = new DashboardFragment(position);
+		isDashboard = true;
 	}
 
-	fragmentManager.beginTransaction().replace(R.id.container, newFrag).commit();
+	if (fragmentManager.getBackStackEntryCount() != 0) {
+	    fragmentManager.popBackStack();
+	}
+	FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, newFrag);
+	if (!isDashboard) {
+	    transaction.addToBackStack(null);
+	}
+	transaction.commit();
     }
 
     public void onSectionAttached(int number) {
