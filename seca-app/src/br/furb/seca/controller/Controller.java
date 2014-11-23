@@ -1,7 +1,9 @@
 package br.furb.seca.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -46,6 +48,40 @@ public class Controller {
 			cursor.moveToNext();
 		}
 		return dias;
+	}
+	
+	public List<Map<String, String>> horariosFormatados() {
+		List<Map<String, String>> dados = new ArrayList<Map<String, String>>();
+		List<Horario> horarios = this.buscarHorarios();
+
+		DiaSemana diaAnterior = null;
+		Disciplina disciplinaAnteior = null;
+
+		Map<String, String> map = null;
+		for (Horario horario : horarios) {
+
+			if (map != null
+					&& horario.getDiaSemana().equals(diaAnterior)
+					&& horario.getDisciplina().getNome()
+							.equals(disciplinaAnteior.getNome())) {
+				map.put("horarioFim", horario.getPeriodo().getFim());
+			} else {
+				map = new HashMap<String, String>();
+				map.put("dia", horario.getDescricaoDiaSemana());
+				map.put("disciplina", horario.getDisciplina().getNome());
+				map.put("professor", horario.getDisciplina().getNomeProfessor());
+				map.put("horarioInicio", horario.getPeriodo().getInicio());
+				map.put("horarioFim", horario.getPeriodo().getFim());
+				map.put("sala", horario.getSala());
+				dados.add(map);
+			}
+
+			diaAnterior = horario.getDiaSemana();
+			disciplinaAnteior = horario.getDisciplina();
+		}
+
+		return dados;
+
 	}
 
 	public void sincronizar() {
