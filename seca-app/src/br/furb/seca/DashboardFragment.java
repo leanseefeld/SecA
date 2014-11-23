@@ -26,7 +26,8 @@ public class DashboardFragment extends MyFragment {
 	controller = new Controller(v.getContext());
 
 	horarios = (ListView) v.findViewById(R.id.lista_horarios);
-	horarios.setAdapter(new DashboardHorarioListAdapter(v.getContext(), controller.horariosFormatados(2)));
+	horarios.setAdapter(new DashboardHorarioListAdapter(v.getContext(), 
+		controller.proximosHorariosFormatados(2)));
 
 	return v;
     }

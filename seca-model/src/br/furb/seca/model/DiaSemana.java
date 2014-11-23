@@ -2,17 +2,19 @@ package br.furb.seca.model;
 
 public enum DiaSemana {
 
-    DOMINGO("domingo"), //
-    SEGUNDA("segunda-feira"), //
-    TERCA("terça-feira"), //
-    QUARTA("quarta-feira"), //
-    QUINTA("quinta-feira"), //
-    SEXTA("sexta-feira"), //
-    SABADO("sábado");
+    DOMINGO(1, "domingo"), //
+    SEGUNDA(2, "segunda-feira"), //
+    TERCA(3, "terça-feira"), //
+    QUARTA(4, "quarta-feira"), //
+    QUINTA(5, "quinta-feira"), //
+    SEXTA(6, "sexta-feira"), //
+    SABADO(7, "sábado");
 
     private String descricao;
+    private int codigo;
 
-    private DiaSemana(String descricao) {
+    private DiaSemana(int codigo, String descricao) {
+	this.codigo = codigo;
 	this.descricao = descricao;
     }
 
@@ -29,4 +31,9 @@ public enum DiaSemana {
 	return values[0];
     }
 
+    public int getCodigo()
+    {
+	return this.codigo;
+    }
+    
 }

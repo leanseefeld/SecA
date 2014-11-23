@@ -1,6 +1,8 @@
 package br.furb.seca.controller;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import br.furb.seca.model.Compromisso;
 import br.furb.seca.model.DatabaseHelper;
 import br.furb.seca.model.DiaSemana;
@@ -48,10 +51,61 @@ public class Controller {
 	}
 	return dias;
     }
-
-    public List<Map<String, String>> horariosFormatados(int quantidade) {
+    
+    public List<Horario> buscarProximosHorarios(int diaAtual) {
+	List<Horario> horarios = this.buscarHorarios();
+	List<Horario> horariosRemover = new ArrayList<Horario>();
+		
+	for (int i = 0; i < horarios.size(); i++) {
+	    if(horarios.get(i).getDiaSemana().getCodigo() < diaAtual){
+		horariosRemover.add(horarios.get(i));
+	    }
+	}
+	
+	//Remove todos para depois adicionar no fim da lista
+	horarios.removeAll(horariosRemover);
+	horarios.addAll(horariosRemover);
+	
+	return horarios;
+    }
+    
+    public List<Map<String, String>> horariosFormatados() {
 	List<Map<String, String>> dados = new ArrayList<Map<String, String>>();
 	List<Horario> horarios = this.buscarHorarios();
+
+	DiaSemana diaAnterior = null;
+	Disciplina disciplinaAnteior = null;
+
+	Map<String, String> map = null;
+	for (Horario horario : horarios) {
+
+	    if (map != null && horario.getDiaSemana().equals(diaAnterior)
+		    && horario.getDisciplina().getNome().equals(disciplinaAnteior.getNome())) {
+		map.put("horarioFim", horario.getPeriodo().getFim());
+	    } else {
+
+		map = new HashMap<String, String>();
+		map.put("dia", horario.getDescricaoDiaSemana());
+		map.put("disciplina", horario.getDisciplina().getNome());
+		map.put("professor", horario.getDisciplina().getNomeProfessor());
+		map.put("horarioInicio", horario.getPeriodo().getInicio());
+		map.put("horarioFim", horario.getPeriodo().getFim());
+		map.put("sala", horario.getSala());
+		dados.add(map);
+	    }
+
+	    diaAnterior = horario.getDiaSemana();
+	    disciplinaAnteior = horario.getDisciplina();
+	}
+
+	return dados;
+    }
+    
+    public List<Map<String, String>> proximosHorariosFormatados(int quantidade) {
+	List<Map<String, String>> dados = new ArrayList<Map<String, String>>();
+	int diaDaSemana = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+	Log.d("MEU", "dia: " + diaDaSemana);
+	List<Horario> horarios = this.buscarProximosHorarios(diaDaSemana);
 
 	DiaSemana diaAnterior = null;
 	Disciplina disciplinaAnteior = null;
@@ -83,7 +137,6 @@ public class Controller {
 	}
 
 	return dados;
-
     }
 
     public void sincronizar() {
