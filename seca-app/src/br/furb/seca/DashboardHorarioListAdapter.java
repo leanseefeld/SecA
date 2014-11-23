@@ -37,7 +37,7 @@ public class DashboardHorarioListAdapter extends
 	}
 
 	public View getCustomView(int position, View converView, ViewGroup parent) {
-		View row = inflater.inflate(R.layout.fragment_horario_item, parent,
+		View row = inflater.inflate(R.layout.fragment_dashboard_horario_item, parent,
 				false);
 
 		Map<String, String> horario = horarios.get(position);

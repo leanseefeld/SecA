@@ -26,7 +26,7 @@ public class GradeHorariaFragment extends MyFragment {
 	controller = new Controller(v.getContext());
 
 	ListViewDiasSemana = (ListView) v.findViewById(R.id.dias_semana);
-	ListViewDiasSemana.setAdapter(new HorarioListAdapter(v.getContext(), controller.horariosFormatados()));
+	ListViewDiasSemana.setAdapter(new HorarioListAdapter(v.getContext(), controller.horariosFormatados(0)));
 
 	return v;
     }
