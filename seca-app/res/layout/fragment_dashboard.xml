@@ -17,17 +17,9 @@
 
     <ListView
         android:id="@+id/lista_horarios"
+        style="@style/SecA_listView"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:divider="@color/cor_fundo"
-        android:dividerHeight="2dp"
-        android:drawSelectorOnTop="false"
-        android:duplicateParentState="false"
-        android:footerDividersEnabled="false"
-        android:headerDividersEnabled="false"
-        android:longClickable="false"
-        android:scrollbars="none" >
+        android:layout_height="wrap_content" >
     </ListView>
 
     <TextView
@@ -39,7 +31,8 @@
         android:textSize="20sp" />
 
     <ListView
-        android:id="@+id/compromissos"
+        android:id="@+id/compromissos_dashboard"
+        style="@style/SecA_listView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
     </ListView>

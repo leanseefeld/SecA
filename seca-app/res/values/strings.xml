@@ -10,11 +10,15 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="titulo">Título</string>
-    <string name="lembretes">Lembretes</string>
     <string name="dia_inteiro">Dia Inteiro</string>
     <string name="gravar">Gravar</string>
     <string name="excluir">Excluir</string>
     <string name="proximas_aulas">Próximas Aulas</string>
     <string name="proximos_compromissos">Próximos Compromissos</string>
+    <string name="descricao">Descricao</string>
+    <string name="inicio_do_compromisso">Inicio do Compromisso</string>
+    <string name="fim_do_compromisso">Fim do Compromisso</string>
+    <string name="lembretes_optional">Lembretes(optional)</string>
+    <string name="disciplinas_opcional">Disciplinas(opcional)</string>
 
 </resources>

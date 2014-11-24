@@ -47,6 +47,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	builder.append(" )");
 	db.execSQL(builder.toString());
 
+	builder = new StringBuilder();
+	builder.append(" CREATE TABLE COMPROMISSO(");
+	builder.append(" _id integer primary key not null, ");
+	builder.append(" nrCodigo integer not null, ");
+	builder.append(" dsTitulo text, ");
+	builder.append(" dsDescricao text, ");
+	builder.append(" dtDataInicio text, ");
+	builder.append(" dtDataFim text, ");
+	builder.append(" flDiaTodo smallint, ");
+	builder.append(" fk_disciplina integer null, ");
+	builder.append(" FOREIGN KEY(fk_disciplina) REFERENCES DISCIPLINA(nrCodigo) ");
+	builder.append(" )");
+	db.execSQL(builder.toString());
+	
+	builder = new StringBuilder();
+	builder.append(" CREATE TABLE LEMBRETE(");
+	builder.append(" _id integer primary key not null, ");
+	builder.append(" nrMinutosAntes integer not null, ");
+	builder.append(" fk_compromisso integer not null, ");
+	builder.append(" FOREIGN KEY(fk_compromisso) REFERENCES COMPROMISSO(nrCodigo) ");
+	builder.append(" )");
+	db.execSQL(builder.toString());
+	
     }
 
     @Override

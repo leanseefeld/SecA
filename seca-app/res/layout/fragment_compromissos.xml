@@ -11,37 +11,105 @@
     tools:context="br.furb.seca.MainActivity$PlaceholderFragment" >
 
     <EditText
-        android:id="@+id/txtTitulo"
+        android:id="@+id/titulo_compromisso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/titulo"
         android:inputType="text" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/descricao_compromisso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Procurar componente"
-        android:inputType="date" />
+        android:hint="@string/descricao"
+        android:inputType="text" />
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/cbx_dia_inteiro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/dia_inteiro" />
 
     <TextView
-        android:id="@+id/txtLembretes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lembretes"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:text="@string/inicio_do_compromisso"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp" >
+
+        <TextView
+            android:id="@+id/data_inicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="30dp"
+            android:text="Data"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/hora_inicio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fim_do_compromisso"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingBottom="20dp" >
+
+        <TextView
+            android:id="@+id/data_fim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="30dp"
+            android:text="Data"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/hora_fim"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/lbl_disciplina"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/disciplinas_opcional"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Spinner
+        android:id="@+id/cbo_disciplinas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/lbl_lembretes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lembretes_optional"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
 
         <EditText
             android:id="@+id/txtTempoLemprete"
@@ -49,8 +117,6 @@
             android:layout_height="match_parent"
             android:ems="10"
             android:inputType="number" >
-
-            <requestFocus />
         </EditText>
 
         <Spinner
@@ -65,15 +131,15 @@
         android:orientation="horizontal" >
 
         <Button
-            style="@android:attr/buttonBarButtonStyle"
             android:id="@+id/btnGravar"
+            style="@android:attr/buttonBarButtonStyle"
             android:layout_width="151dp"
             android:layout_height="wrap_content"
             android:text="@string/gravar" />
 
         <Button
-            style="@android:attr/buttonBarButtonStyle"
             android:id="@+id/btnExcluir"
+            style="@android:attr/buttonBarButtonStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/excluir" />

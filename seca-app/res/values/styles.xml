@@ -22,4 +22,15 @@
     <style name="tam_texto_detalhes_horario" parent="android:Widget.Holo.Light.TextView">
         <item name="android:textSize">17sp</item>
     </style>
+    <style name="SecA_listView" parent="android:Widget.Holo.Light.ListView">
+        <item name="android:clickable">true</item>
+        <item name="android:divider">@color/cor_fundo</item>
+        <item name="android:dividerHeight">2dp</item>
+        <item name="android:drawSelectorOnTop">false</item>
+        <item name="android:duplicateParentState">false</item>
+        <item name="android:footerDividersEnabled">false</item>
+        <item name="android:headerDividersEnabled">false</item>
+        <item name="android:longClickable">false</item>
+        <item name="android:scrollbars">none</item>
+    </style>
 </resources>

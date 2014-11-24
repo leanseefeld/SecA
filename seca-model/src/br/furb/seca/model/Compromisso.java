@@ -1,11 +1,13 @@
 package br.furb.seca.model;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import android.R.bool;
 
 public class Compromisso {
 
+    private long _id;
     private int codigo;
     private String descricao;
     private String titulo;
@@ -14,6 +16,42 @@ public class Compromisso {
     private boolean isDiaTodo;
     private final List<Integer> lembretes;
     private Disciplina disciplina;
+
+    public long getId() {
+        return _id;
+    }
+    
+    public void setId(long id) {
+        this._id = id;
+    }
+    
+    public void setCodigo(int codigo) {
+	this.codigo = codigo;
+    }
+
+    public void setDescricao(String descricao) {
+	this.descricao = descricao;
+    }
+
+    public void setTitulo(String titulo) {
+	this.titulo = titulo;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+	this.dataInicio = dataInicio;
+    }
+
+    public void setDataFim(Date dataFim) {
+	this.dataFim = dataFim;
+    }
+
+    public void setDiaTodo(boolean isDiaTodo) {
+	this.isDiaTodo = isDiaTodo;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+	this.disciplina = disciplina;
+    }
 
     public Compromisso() {
 	this.lembretes = new ArrayList<>();
@@ -47,6 +85,10 @@ public class Compromisso {
 	return codigo;
     }
 
+    public List<Integer> getLembretes() {
+	return lembretes;
+    }
+
     /**
      * Verifica se o compromisso é de dia inteiro.<br>
      * Em caso afirmativo, o {@code Date} retornado nos métodos {@link #getDataInicio()} e
@@ -57,6 +99,10 @@ public class Compromisso {
      */
     public boolean isDiaTodo() {
 	return isDiaTodo;
+    }
+
+    public void setIsDiaTodo(boolean isDiaTodo) {
+	this.isDiaTodo = isDiaTodo;
     }
 
 }

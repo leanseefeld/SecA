@@ -1,11 +1,14 @@
 package br.furb.seca.controller;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Random;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -49,26 +52,27 @@ public class Controller {
 	    dias.add(hor);
 	    cursor.moveToNext();
 	}
+	Log.d("MEU", "nrDias:" + dias.size());
 	return dias;
     }
-    
+
     public List<Horario> buscarProximosHorarios(int diaAtual) {
 	List<Horario> horarios = this.buscarHorarios();
 	List<Horario> horariosRemover = new ArrayList<Horario>();
-		
+
 	for (int i = 0; i < horarios.size(); i++) {
-	    if(horarios.get(i).getDiaSemana().getCodigo() < diaAtual){
+	    if (horarios.get(i).getDiaSemana().getCodigo() < diaAtual) {
 		horariosRemover.add(horarios.get(i));
 	    }
 	}
-	
+
 	//Remove todos para depois adicionar no fim da lista
 	horarios.removeAll(horariosRemover);
 	horarios.addAll(horariosRemover);
-	
+
 	return horarios;
     }
-    
+
     public List<Map<String, String>> horariosFormatados() {
 	List<Map<String, String>> dados = new ArrayList<Map<String, String>>();
 	List<Horario> horarios = this.buscarHorarios();
@@ -100,11 +104,10 @@ public class Controller {
 
 	return dados;
     }
-    
-    public List<Map<String, String>> proximosHorariosFormatados(int quantidade) {
+
+    public List<Map<String, String>> buscarProximosHorariosFormatados(int quantidade) {
 	List<Map<String, String>> dados = new ArrayList<Map<String, String>>();
 	int diaDaSemana = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
-	Log.d("MEU", "dia: " + diaDaSemana);
 	List<Horario> horarios = this.buscarProximosHorarios(diaDaSemana);
 
 	DiaSemana diaAnterior = null;
@@ -241,18 +244,167 @@ public class Controller {
 	db.insert("HORARIO", null, values);
     }
 
-    public List<Compromisso> buscarCompromissos(Disciplina disciplina) {
-	throw new UnsupportedOperationException("Não implementado ainda :)");
-    }
-
     public void gravarCompromisso(Compromisso compromisso) {
-	if (compromisso.getCodigo() == 0) {
-	    // TODO: gravar
+
+	//TODO: ENVIR PARA O WEBSERVICE
+
+	if (compromisso.getId() == 0) {
+	    final Random numRandomico = new Random();
+
+	    SQLiteDatabase db = dbHelper.getWritableDatabase();
+	    ContentValues values = new ContentValues();
+	    values.put("nrCodigo", numRandomico.nextInt()); //TODO: o código virá do web-service
+	    values.put("dsTitulo", compromisso.getTitulo());
+	    values.put("dsDescricao", compromisso.getDescricao());
+	    values.put("dtDataInicio", dateToSqLiteDate(compromisso.getDataInicio()));
+	    values.put("dtDataFim", dateToSqLiteDate(compromisso.getDataFim()));
+	    values.put("flDiaTodo", compromisso.isDiaTodo());
+	    if (compromisso.getDisciplina() != null) {
+		values.put("fk_disciplina", compromisso.getDisciplina().getCodigo());
+	    }
+	    
+	    compromisso.setId(db.insert("COMPROMISSO", null, values));
+	    
+	    Log.d("MEU", "ID do compromisso gravado: "+ compromisso.getId());
+
 	} else {
-	    // TODO: alterar
+	    SQLiteDatabase db = dbHelper.getWritableDatabase();
+	    ContentValues values = new ContentValues();
+	    values.put("dsTitulo", compromisso.getTitulo());
+	    values.put("dsDescricao", compromisso.getDescricao());
+	    values.put("dtDataInicio", dateToSqLiteDate(compromisso.getDataInicio()));
+	    values.put("dtDataFim", dateToSqLiteDate(compromisso.getDataFim()));
+	    values.put("flDiaTodo", compromisso.isDiaTodo());
+	    values.put("fk_disciplina", compromisso.getDisciplina().getCodigo());
+
+	    db.update("COMPROMISSO", values, "_id=" + compromisso.getId(), null);
+	    Log.d("MEU", "compromisso " + compromisso.getId() + " - " + compromisso.getTitulo() + " alterado");
 	}
 
-	throw new UnsupportedOperationException("Não implementado ainda :)");
+	this.gravarLembretes(compromisso);
+    }
+
+    public void gravarLembretes(Compromisso compromisso) {
+	if (compromisso.getLembretes().size() == 0)
+	    return;
+    }
+
+    public List<Disciplina> buscarDisciplinas() {
+
+	List<Disciplina> disciplinas = new ArrayList<Disciplina>();
+	SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+	StringBuilder builder = new StringBuilder();
+	builder.append(" SELECT DISCIPLINA._id, DISCIPLINA.nrCodigo, DISCIPLINA.dsNome, PROFESSOR.dsNome ");
+	builder.append(" FROM DISCIPLINA ");
+	builder.append(" INNER JOIN PROFESSOR ");
+	builder.append(" ON PROFESSOR.nrCodigo = DISCIPLINA.fk_professor ");
+
+	Cursor cursor = db.rawQuery(builder.toString(), null);
+	cursor.moveToFirst();
+	while (cursor.isAfterLast() == false) {
+	    Disciplina disc = new Disciplina();
+	    disc.setId(cursor.getInt(0));
+	    disc.setCodigo(cursor.getInt(1));
+	    disc.setNome(cursor.getString(2));
+	    disc.setNomeProfessor(cursor.getString(3));
+	    disciplinas.add(disc);
+
+	    cursor.moveToNext();
+	}
+
+	return disciplinas;
+    }
+
+    public Disciplina buscarDisciplina(long _id) {
+
+	Disciplina disciplina = null;
+	SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+	StringBuilder builder = new StringBuilder();
+	builder.append(" SELECT DISCIPLINA._id, DISCIPLINA.nrCodigo, DISCIPLINA.dsNome, PROFESSOR.dsNome ");
+	builder.append(" FROM DISCIPLINA ");
+	builder.append(" INNER JOIN PROFESSOR ");
+	builder.append(" ON PROFESSOR.nrCodigo = DISCIPLINA.fk_professor ");
+	builder.append(" WHERE DISCIPLINA._id = " + _id);
+
+	Cursor cursor = db.rawQuery(builder.toString(), null);
+	cursor.moveToFirst();
+	if (cursor.isAfterLast() == false) {
+	    disciplina=  new Disciplina();
+	    disciplina.setId(cursor.getInt(0));
+	    disciplina.setCodigo(cursor.getInt(1));
+	    disciplina.setNome(cursor.getString(2));
+	    disciplina.setNomeProfessor(cursor.getString(3));
+	}
+
+	return disciplina;
+    }
+    
+    public Disciplina buscarDisciplinaPorCodigo(int codigo) {
+
+	Disciplina disciplina = null;
+	SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+	StringBuilder builder = new StringBuilder();
+	builder.append(" SELECT DISCIPLINA._id, DISCIPLINA.nrCodigo, DISCIPLINA.dsNome, PROFESSOR.dsNome ");
+	builder.append(" FROM DISCIPLINA ");
+	builder.append(" INNER JOIN PROFESSOR ");
+	builder.append(" ON PROFESSOR.nrCodigo = DISCIPLINA.fk_professor ");
+	builder.append(" WHERE DISCIPLINA.nrCodigo = " + codigo);
+
+	Cursor cursor = db.rawQuery(builder.toString(), null);
+	cursor.moveToFirst();
+	if (cursor.isAfterLast() == false) {
+	    disciplina=  new Disciplina();
+	    disciplina.setId(cursor.getInt(0));
+	    disciplina.setCodigo(cursor.getInt(1));
+	    disciplina.setNome(cursor.getString(2));
+	    disciplina.setNomeProfessor(cursor.getString(3));
+	}
+
+	return disciplina;
+    }
+
+    private String dateToSqLiteDate(Date data) {
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+	return dateFormat.format(data);
+    }
+
+    private Date dateSqLiteToDate(String data) throws java.text.ParseException {
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+	return dateFormat.parse(data);
+    }
+
+    public List<Compromisso> buscarProximosCompromissos(int quantidade) throws java.text.ParseException {
+	List<Compromisso> compromissos = new ArrayList<Compromisso>();
+	SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+	StringBuilder builder = new StringBuilder();
+	builder.append(" SELECT _id, nrCodigo, flDiaTodo, dsTitulo, dsDescricao, dtDataInicio, dtDataFim, fk_disciplina ");
+	builder.append(" FROM COMPROMISSO ");
+	builder.append(" WHERE dtDataInicio >= '" + dateToSqLiteDate(Calendar.getInstance().getTime()) + "'");
+	builder.append(" ORDER BY dtDataInicio ");
+	builder.append(" LIMIT " + quantidade);
+
+	Cursor cursor = db.rawQuery(builder.toString(), null);
+	cursor.moveToFirst();
+	while (cursor.isAfterLast() == false) {
+	    Compromisso compromisso = new Compromisso();
+	    compromisso.setId(cursor.getInt(0));
+	    compromisso.setCodigo(cursor.getInt(1));
+	    compromisso.setIsDiaTodo(cursor.getInt(2) == 1 ? true : false);
+	    compromisso.setTitulo(cursor.getString(3));
+	    compromisso.setDescricao(cursor.getString(4));
+	    compromisso.setDataInicio(dateSqLiteToDate(cursor.getString(5)));
+	    compromisso.setDataFim(dateSqLiteToDate(cursor.getString(6)));
+	    
+	    compromisso.setDisciplina(this.buscarDisciplinaPorCodigo(cursor.getInt(7)));
+	    
+	    compromissos.add(compromisso);
+	    cursor.moveToNext();
+	}
+	return compromissos;
     }
 
 }
