@@ -14,7 +14,7 @@
     
     <TextView
         android:id="@+id/disciplina_compromisso"
-        style="@style/tam_texto_detalhes_horario"
+        style="@style/tam_texto_detalhes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Disciplina"
@@ -22,7 +22,7 @@
     
     <TextView
         android:id="@+id/data_compromisso"
-        style="@style/tam_texto_detalhes_horario"
+        style="@style/tam_texto_detalhes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Data"

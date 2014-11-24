@@ -19,7 +19,7 @@
     <color name="cor_branca">#FFFFFF</color>
     
     <color name="cor_fundo">#EAEAEA</color>
-    <style name="tam_texto_detalhes_horario" parent="android:Widget.Holo.Light.TextView">
+    <style name="tam_texto_detalhes" parent="android:Widget.Holo.Light.TextView">
         <item name="android:textSize">17sp</item>
     </style>
     <style name="SecA_listView" parent="android:Widget.Holo.Light.ListView">
