@@ -14,18 +14,23 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.widget.Toast;
+import br.furb.seca.model.Aluno;
 import br.furb.seca.model.Compromisso;
 import br.furb.seca.model.DatabaseHelper;
 import br.furb.seca.model.DiaSemana;
 import br.furb.seca.model.Disciplina;
 import br.furb.seca.model.Horario;
+import br.furb.seca.model.WebServiceConnector;
 
 public class Controller {
 
-    DatabaseHelper dbHelper;
+    private DatabaseHelper dbHelper;
+    private Context context;
 
-    public Controller(Context c) {
-	dbHelper = new DatabaseHelper(c);
+    public Controller(Context context) {
+	this.context = context;
+	this.dbHelper = new DatabaseHelper(context);
     }
 
     public List<Horario> buscarHorarios() {
@@ -143,6 +148,22 @@ public class Controller {
     }
 
     public void sincronizar() {
+	/* talvez passar a URL do webservice aqui. De qualquer forma, 
+	 * pegar do Android.manifest ou outro lugar que não seja hard coded */
+	WebServiceConnector wsConnector = new WebServiceConnector();
+	try {
+	    Aluno aluno = null; // TODO: obter aluno tentando logar ou logado
+	    aluno = wsConnector.carregarAluno(aluno);
+
+	    // TODO: persistir os dados no banco
+	} catch (Exception e) {
+	    Toast.makeText(context, "Não foi possível sincronizar os dados: " + e.getMessage(), Toast.LENGTH_LONG)
+		    .show();
+	}
+    }
+
+    @Deprecated
+    public void _sincronizar() {
 	SQLiteDatabase db = dbHelper.getWritableDatabase();
 
 	db.delete("PROFESSOR", "1=1", null);
@@ -262,10 +283,10 @@ public class Controller {
 	    if (compromisso.getDisciplina() != null) {
 		values.put("fk_disciplina", compromisso.getDisciplina().getCodigo());
 	    }
-	    
+
 	    compromisso.setId(db.insert("COMPROMISSO", null, values));
-	    
-	    Log.d("MEU", "ID do compromisso gravado: "+ compromisso.getId());
+
+	    Log.d("MEU", "ID do compromisso gravado: " + compromisso.getId());
 
 	} else {
 	    SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -331,7 +352,7 @@ public class Controller {
 	Cursor cursor = db.rawQuery(builder.toString(), null);
 	cursor.moveToFirst();
 	if (cursor.isAfterLast() == false) {
-	    disciplina=  new Disciplina();
+	    disciplina = new Disciplina();
 	    disciplina.setId(cursor.getInt(0));
 	    disciplina.setCodigo(cursor.getInt(1));
 	    disciplina.setNome(cursor.getString(2));
@@ -340,7 +361,7 @@ public class Controller {
 
 	return disciplina;
     }
-    
+
     public Disciplina buscarDisciplinaPorCodigo(int codigo) {
 
 	Disciplina disciplina = null;
@@ -356,7 +377,7 @@ public class Controller {
 	Cursor cursor = db.rawQuery(builder.toString(), null);
 	cursor.moveToFirst();
 	if (cursor.isAfterLast() == false) {
-	    disciplina=  new Disciplina();
+	    disciplina = new Disciplina();
 	    disciplina.setId(cursor.getInt(0));
 	    disciplina.setCodigo(cursor.getInt(1));
 	    disciplina.setNome(cursor.getString(2));
@@ -398,9 +419,9 @@ public class Controller {
 	    compromisso.setDescricao(cursor.getString(4));
 	    compromisso.setDataInicio(dateSqLiteToDate(cursor.getString(5)));
 	    compromisso.setDataFim(dateSqLiteToDate(cursor.getString(6)));
-	    
+
 	    compromisso.setDisciplina(this.buscarDisciplinaPorCodigo(cursor.getInt(7)));
-	    
+
 	    compromissos.add(compromisso);
 	    cursor.moveToNext();
 	}
