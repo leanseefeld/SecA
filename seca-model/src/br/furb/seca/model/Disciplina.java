@@ -1,6 +1,7 @@
 package br.furb.seca.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class Disciplina {
@@ -10,6 +11,7 @@ public class Disciplina {
     private String nomeProfessor;
     private String nome;
     private final List<Prova> provas = new ArrayList<>(5);
+    private final Collection<Horario> horarios = new ArrayList<>();
 
     public Disciplina() {
 
@@ -58,6 +60,14 @@ public class Disciplina {
 
     public void addProva(Prova prova) {
 	this.provas.add(prova);
+    }
+
+    public Collection<Horario> getHorarios() {
+	return horarios;
+    }
+
+    public void addHorario(Horario horario) {
+	this.horarios.add(horario);
     }
 
     @Override
