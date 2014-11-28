@@ -135,6 +135,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private void insertCompromissos(SQLiteDatabase db, Collection<Compromisso> compromissos) {
 	for (Compromisso compromisso : compromissos) {
 	    ContentValues values = new ContentValues();
+	    values.put("nrCodigo", compromisso.getCodigo());
 	    values.put("dsTitulo", compromisso.getTitulo());
 	    values.put("dsDescricao", compromisso.getDescricao());
 	    values.put("dtDataInicio", dateToSqLiteDate(compromisso.getDataInicio()));

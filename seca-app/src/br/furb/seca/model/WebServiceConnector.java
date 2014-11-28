@@ -42,7 +42,7 @@ public class WebServiceConnector {
 	Aluno mock = new Aluno(aluno.getCodigo(), aluno.getUsuario(), aluno.getNomeCompleto(), aluno.getSenha());
 
 	Compromisso compAllDay = new Compromisso();
-	compAllDay.setCodigo(3);
+	compAllDay.setCodigo(983);
 	compAllDay.setTitulo("Comp Mock 01");
 	compAllDay.setDescricao("Descrição do compromisso mock");
 	compAllDay.setDiaTodo(true);
@@ -53,7 +53,7 @@ public class WebServiceConnector {
 	compAllDay.addLembrete(30);
 
 	Compromisso compPartDay = new Compromisso();
-	compPartDay.setCodigo(3);
+	compPartDay.setCodigo(332);
 	compPartDay.setTitulo("Comp Mock 02");
 	compPartDay.setDescricao("Descrição do segundo compromisso mock");
 	compPartDay.setDiaTodo(false);
