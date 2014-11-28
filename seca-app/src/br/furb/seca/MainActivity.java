@@ -36,7 +36,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
 	Controller c = new Controller(this);
-	c.sincronizar();
+	c.sincronizarWebService();
     }
 
     @Override

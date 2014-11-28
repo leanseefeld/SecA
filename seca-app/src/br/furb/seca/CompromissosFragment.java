@@ -160,7 +160,7 @@ public class CompromissosFragment extends MyFragment {
 
 	    @Override
 	    public void onClick(View v) {
-		CompromissosFragment.this.Gravar();
+		CompromissosFragment.this.gravar();
 	    }
 	});
 
@@ -168,7 +168,7 @@ public class CompromissosFragment extends MyFragment {
 
 	    @Override
 	    public void onClick(View v) {
-		CompromissosFragment.this.Excluir();
+		CompromissosFragment.this.excluir();
 	    }
 	});
 
@@ -232,7 +232,7 @@ public class CompromissosFragment extends MyFragment {
 	disciplinasMap.add(map);
 	for (Disciplina disc : disciplinas) {
 	    map = new HashMap<String, String>();
-	    map.put("_id", String.valueOf(disc.getId()));
+	    map.put("_id", String.valueOf(disc.getCodigo()));
 	    map.put("Valor", disc.getNome());
 	    disciplinasMap.add(map);
 	}
@@ -266,8 +266,7 @@ public class CompromissosFragment extends MyFragment {
 	this.tempo_fim.setText(String.format("%02d:%02d:00", hora, minuto));
     }
 
-    private void Gravar() {
-
+    private void gravar() {
 	String titulo = titulo_compromisso.getText().toString();
 	if (titulo.isEmpty()) {
 	    titulo_compromisso.setError("Este campo tem conteúdo obrigatório");
@@ -314,11 +313,12 @@ public class CompromissosFragment extends MyFragment {
 
 	controller.gravarCompromisso(compromisso);
 
-	Toast.makeText(context, "Compromisso cadastrada com sucesso!", Toast.LENGTH_SHORT).show();
+	Toast.makeText(context, "Compromisso cadastrado com sucesso!", Toast.LENGTH_SHORT).show();
     }
 
-    private void Excluir() {
+    private void excluir() {
 	Toast.makeText(context, "Excluindo o compromisso " + _idCompromisso, Toast.LENGTH_SHORT).show();
+	// TPDP
     }
 
     interface DateListener {
@@ -381,4 +381,5 @@ public class CompromissosFragment extends MyFragment {
 	    timeListner.setTime(hourOfDay, minute);
 	}
     }
+
 }

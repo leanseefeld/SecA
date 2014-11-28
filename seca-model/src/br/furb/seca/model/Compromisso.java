@@ -6,8 +6,7 @@ import java.util.List;
 
 public class Compromisso {
 
-    private long _id;
-    private int codigo;
+    private long codigo;
     private String descricao;
     private String titulo;
     private Date dataInicio;
@@ -34,14 +33,6 @@ public class Compromisso {
      */
     public boolean isDiaTodo() {
 	return isDiaTodo;
-    }
-
-    public long getId() {
-	return _id;
-    }
-
-    public void setId(long id) {
-	this._id = id;
     }
 
     public void setDiaTodo(boolean isDiaTodo) {
@@ -100,7 +91,7 @@ public class Compromisso {
 	return disciplina;
     }
 
-    public int getCodigo() {
+    public long getCodigo() {
 	return codigo;
     }
 
@@ -116,7 +107,7 @@ public class Compromisso {
      * @param codigo
      *            the codigo to set
      */
-    public void setCodigo(int codigo) {
+    public void setCodigo(long codigo) {
 	this.codigo = codigo;
     }
 

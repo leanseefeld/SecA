@@ -12,10 +12,11 @@ public class Aluno {
     private final Collection<Compromisso> compromissos = new ArrayList<>();
     private final Collection<Disciplina> disciplinas = new ArrayList<>();
 
-    public Aluno(long codigo, String usuario, String nomeCompleto) {
+    public Aluno(long codigo, String usuario, String nomeCompleto, byte[] senha) {
 	this.codigo = codigo;
 	this.usuario = usuario;
 	this.nomeCompleto = nomeCompleto;
+	this.senha = senha;
     }
 
     public final long getCodigo() {

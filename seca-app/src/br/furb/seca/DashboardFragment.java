@@ -36,12 +36,13 @@ public class DashboardFragment extends MyFragment {
 		.buscarProximosHorariosFormatados(2)));
 
 	try {
-	       compromissos.setAdapter(new DashboardCompromissoListAdapter(v.getContext(), controller
-	    	    .buscarProximosCompromissos(2)));
+	    compromissos.setAdapter(new DashboardCompromissoListAdapter(v.getContext(), controller
+		    .buscarProximosCompromissos(2)));
 	} catch (Exception ex) {
 	    Log.d("MEU", ex.getMessage());
 	    Toast.makeText(v.getContext(), "Ocorreu um erro ao bucar os compromissos \r\n" + ex.getMessage(),
 		    Toast.LENGTH_LONG).show();
+	    Log.e("SecA-compromissos", "Ocorreu um erro ao bucar os compromissos", ex);
 	}
 
 	return v;

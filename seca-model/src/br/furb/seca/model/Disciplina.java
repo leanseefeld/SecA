@@ -6,9 +6,8 @@ import java.util.List;
 
 public class Disciplina {
 
-    private long _id;
     private int codigo;
-    private String nomeProfessor;
+    private Professor professor;
     private String nome;
     private final List<Prova> provas = new ArrayList<>(5);
     private final Collection<Horario> horarios = new ArrayList<>();
@@ -17,25 +16,13 @@ public class Disciplina {
 
     }
 
-    public Disciplina(String nome, String nomeProfessor) {
+    public Disciplina(String nome, Professor professor) {
 	this.nome = nome;
-	this.nomeProfessor = nomeProfessor;
-    }
-
-    public long getId() {
-	return _id;
-    }
-
-    public void setId(long _id) {
-	this._id = _id;
+	this.professor = professor;
     }
 
     public void setCodigo(int codigo) {
 	this.codigo = codigo;
-    }
-
-    public void setNomeProfessor(String nomeProfessor) {
-	this.nomeProfessor = nomeProfessor;
     }
 
     public void setNome(String nome) {
@@ -46,16 +33,20 @@ public class Disciplina {
 	return this.nome;
     }
 
-    public String getNomeProfessor() {
-	return nomeProfessor;
-    }
-
     public int getCodigo() {
 	return codigo;
     }
 
     public List<Prova> getProvas() {
 	return provas;
+    }
+
+    public Professor getProfessor() {
+	return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+	this.professor = professor;
     }
 
     public void addProva(Prova prova) {

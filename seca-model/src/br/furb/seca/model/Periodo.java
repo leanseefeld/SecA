@@ -7,7 +7,7 @@ public enum Periodo {
     _3("09:30", "10:20"), //
     _4("10:20", "11:10"), //
     _5("11:10", "12:00"), //
-    _6("12:00", "13:30"), // oficialmente, não tem o 6
+    _6("12:00", "13:30"), // oficialmente, não tem o 6. Está aqui apenas para não quebrar a sequencia
     _7("13:30", "14:20"), //
     _8("14:20", "15:10"), //
     _9("15:30", "16:20"), //
@@ -32,6 +32,10 @@ public enum Periodo {
 
     public String getInicio() {
 	return inicio;
+    }
+
+    public int getCodigo() {
+	return ordinal() + 1;
     }
 
     public static Periodo fromCodigo(int periodo) {
