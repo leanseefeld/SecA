@@ -48,6 +48,7 @@ public class WebServiceConnector {
 	compAllDay.setDiaTodo(true);
 	Calendar now = Calendar.getInstance();
 	compAllDay.setDataInicio(now.getTime());
+	compAllDay.setDataFim(now.getTime());
 	compAllDay.addLembrete(10);
 	compAllDay.addLembrete(30);
 

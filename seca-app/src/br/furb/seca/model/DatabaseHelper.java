@@ -1,10 +1,12 @@
 package br.furb.seca.model;
 
 import java.util.Collection;
+import java.util.Date;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import br.furb.seca.controller.Controller;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -100,16 +102,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void insertDisciplinas(SQLiteDatabase db, Collection<Disciplina> disciplinas) {
 	for (Disciplina disciplina : disciplinas) {
-	    // TODO
+	    insertProfessor(db, disciplina.getProfessor());
 
 	    ContentValues values = new ContentValues();
 	    values.put("nrCodigo", disciplina.getCodigo());
 	    values.put("dsNome", disciplina.getNome());
-	    values.put("fk_professor", 3);
+	    values.put("fk_professor", disciplina.getProfessor().getCodigo());
 	    db.insert("DISCIPLINA", null, values);
 
 	    insertHorarios(db, disciplina.getHorarios());
 	}
+    }
+
+    private void insertProfessor(SQLiteDatabase db, Professor professor) {
+	ContentValues values = new ContentValues();
+	values.put("nrCodigo", professor.getCodigo());
+	values.put("dsNome", professor.getNome());
+	db.insert("PROFESSOR", null, values);
     }
 
     private void insertHorarios(SQLiteDatabase db, Collection<Horario> horarios) {
@@ -124,8 +133,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void insertCompromissos(SQLiteDatabase db, Collection<Compromisso> compromissos) {
-	// TODO Auto-generated method stub
+	for (Compromisso compromisso : compromissos) {
+	    ContentValues values = new ContentValues();
+	    values.put("dsTitulo", compromisso.getTitulo());
+	    values.put("dsDescricao", compromisso.getDescricao());
+	    values.put("dtDataInicio", dateToSqLiteDate(compromisso.getDataInicio()));
+	    values.put("dtDataFim", dateToSqLiteDate(compromisso.getDataFim()));
+	    values.put("flDiaTodo", compromisso.isDiaTodo());
+	    db.insert("COMPROMISSO", null, values);
+	}
+    }
 
+    public static Date dateSqLiteToDate(String data) throws java.text.ParseException {
+	return Controller.SIMPLE_DATE_FORMAT.parse(data);
+    }
+
+    public static String dateToSqLiteDate(Date data) {
+	return Controller.SIMPLE_DATE_FORMAT.format(data);
     }
 
 }

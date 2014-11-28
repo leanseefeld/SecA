@@ -3,7 +3,6 @@ package br.furb.seca.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -25,7 +24,7 @@ import br.furb.seca.model.WebServiceConnector;
 
 public class Controller {
 
-    private static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+    public static final SimpleDateFormat SIMPLE_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
 	    Locale.getDefault());
 
     private DatabaseHelper dbHelper;
@@ -283,8 +282,8 @@ public class Controller {
 	//	    values.put("nrCodigo", numRandomico.nextInt()); // TODO: o código virá do web-service
 	values.put("dsTitulo", compromisso.getTitulo());
 	values.put("dsDescricao", compromisso.getDescricao());
-	values.put("dtDataInicio", dateToSqLiteDate(compromisso.getDataInicio()));
-	values.put("dtDataFim", dateToSqLiteDate(compromisso.getDataFim()));
+	values.put("dtDataInicio", DatabaseHelper.dateToSqLiteDate(compromisso.getDataInicio()));
+	values.put("dtDataFim", DatabaseHelper.dateToSqLiteDate(compromisso.getDataFim()));
 	values.put("flDiaTodo", compromisso.isDiaTodo());
 
 	if (compromisso.getDisciplina() != null) {
@@ -369,7 +368,7 @@ public class Controller {
 	StringBuilder builder = new StringBuilder();
 	builder.append(" SELECT nrCodigo, flDiaTodo, dsTitulo, dsDescricao, dtDataInicio, dtDataFim, fk_disciplina ");
 	builder.append(" FROM COMPROMISSO ");
-	builder.append(" WHERE dtDataInicio >= '").append(dateToSqLiteDate(Calendar.getInstance().getTime()))
+	builder.append(" WHERE dtDataInicio >= '").append(DatabaseHelper.dateToSqLiteDate(Calendar.getInstance().getTime()))
 		.append("' ");
 	builder.append(" ORDER BY dtDataInicio ");
 	builder.append(" LIMIT ").append(quantidade);
@@ -383,8 +382,8 @@ public class Controller {
 	    compromisso.setIsDiaTodo(cursor.getInt(idx++) != 0);
 	    compromisso.setTitulo(cursor.getString(idx++));
 	    compromisso.setDescricao(cursor.getString(idx++));
-	    compromisso.setDataInicio(dateSqLiteToDate(cursor.getString(idx++)));
-	    compromisso.setDataFim(dateSqLiteToDate(cursor.getString(idx++)));
+	    compromisso.setDataInicio(DatabaseHelper.dateSqLiteToDate(cursor.getString(idx++)));
+	    compromisso.setDataFim(DatabaseHelper.dateSqLiteToDate(cursor.getString(idx++)));
 
 	    compromisso.setDisciplina(this.buscarDisciplina(cursor.getInt(idx++)));
 
@@ -392,14 +391,6 @@ public class Controller {
 	    cursor.moveToNext();
 	}
 	return compromissos;
-    }
-
-    private static String dateToSqLiteDate(Date data) {
-	return SIMPLE_DATE_FORMAT.format(data);
-    }
-
-    private static Date dateSqLiteToDate(String data) throws java.text.ParseException {
-	return SIMPLE_DATE_FORMAT.parse(data);
     }
 
 }
