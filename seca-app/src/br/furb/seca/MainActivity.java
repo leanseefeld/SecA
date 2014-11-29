@@ -4,7 +4,6 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import br.furb.seca.controller.Controller;
@@ -21,6 +20,13 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
      */
     private CharSequence mTitle;
 
+    private Fragment[] appFragments = { new DashboardFragment(0), // 
+	    new GradeHorariaFragment(1), //
+	    new DisciplinasFragment(2), //
+	    new NotasFragment(3), //
+	    new CompromissosFragment(4) };
+    private int lastPosition = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 	super.onCreate(savedInstanceState);
@@ -33,45 +39,55 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	// Set up the drawer.
 	mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
-	mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
-
 	Controller c = new Controller(this);
 	c.sincronizarWebService();
     }
 
     @Override
+    protected void onStart() {
+	super.onStart();
+
+	// ensure this callback ignore this transaction
+	this.lastPosition = 0;
+	getFragmentManager().beginTransaction().replace(R.id.container, appFragments[0]).commit();
+    }
+
+    @Override
     public void onNavigationDrawerItemSelected(int position) {
+	if (position == this.lastPosition) {
+	    return;
+	}
 	FragmentManager fragmentManager = getFragmentManager();
 
-	Fragment newFrag;
-	boolean isDashboard = false;
+	if (position < 0 || position >= appFragments.length) {
+	    return;
+	}
+	Fragment newFrag = appFragments[position];
 
-	switch (position) {
-	    case 1:
-		newFrag = new GradeHorariaFragment(position);
-		break;
-	    case 2:
-		newFrag = new DisciplinasFragment(position);
-		break;
-	    case 3:
-		newFrag = new NotasFragment(position);
-		break;
-	    case 4:
-		newFrag = new CompromissosFragment(position);
-		break;
-	    default:
-		newFrag = new DashboardFragment(position);
-		isDashboard = true;
-	}
+	boolean goingToDash = position == 0;
+	int enterAnim = goingToDash ? R.animator.pop_in : R.animator.slide_in_left;
+	int exitAnim = goingToDash ? R.animator.slide_out_right : R.animator.pop_out;
 
-	if (fragmentManager.getBackStackEntryCount() != 0) {
-	    fragmentManager.popBackStack();
+	fragmentManager.beginTransaction() //
+		.setCustomAnimations(enterAnim, exitAnim) //
+		.replace(R.id.container, newFrag) //
+		.commit();
+
+	this.lastPosition = position;
+    }
+
+    @Override
+    public void onBackPressed() {
+	if (this.lastPosition == 0) {
+	    super.onBackPressed();
+	} else {
+	    mNavigationDrawerFragment.selectItem(0);
+	    updateDashBoardTitle();
 	}
-	FragmentTransaction transaction = fragmentManager.beginTransaction().replace(R.id.container, newFrag);
-	if (!isDashboard) {
-	    transaction.addToBackStack(null);
-	}
-	transaction.commit();
+    }
+
+    private void updateDashBoardTitle() {
+	getActionBar().setTitle(R.string.title_dashboard);
     }
 
     public void onSectionAttached(int number) {
@@ -95,4 +111,5 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	ActionBar actionBar = getActionBar();
 	actionBar.setTitle(mTitle);
     }
+
 }
