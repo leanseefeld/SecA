@@ -11,12 +11,15 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer. See the <a
@@ -101,6 +104,7 @@ public class NavigationDrawerFragment extends Fragment {
 			getString(R.string.title_notas), //
 			getString(R.string.title_compromissos), }));
 	mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
+
 	return mDrawerListView;
     }
 
@@ -224,23 +228,36 @@ public class NavigationDrawerFragment extends Fragment {
 	mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /*@Override
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-    	// If the drawer is open, show the global app actions in the action bar.
-    	// See also
-    	// showGlobalContextActionBar, which controls the top-left area of the
-    	// action bar.
-    	if (mDrawerLayout != null && isDrawerOpen()) {
-    		inflater.inflate(R.menu.global, menu);
-    		showGlobalContextActionBar();
-    	}
-    	super.onCreateOptionsMenu(menu, inflater);
-    }*/
+
+	// If the drawer is open, show the global app actions in the action bar.
+	// See also
+	// showGlobalContextActionBar, which controls the top-left area of the
+	// action bar.
+	/*if (mDrawerLayout != null && isDrawerOpen()) {
+		inflater.inflate(R.menu.global, menu);
+		showGlobalContextActionBar();
+	}
+	super.onCreateOptionsMenu(menu, inflater);*/
+
+	inflater.inflate(R.menu.menu_seca, menu);
+	super.onCreateOptionsMenu(menu, inflater);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+	
 	if (mDrawerToggle.onOptionsItemSelected(item)) {
 	    return true;
+	}
+
+	switch (item.getItemId()) {
+	    case R.id.action_refresh:
+		mCallbacks.onAtualizar();
+		return true;
+	    default:
+		break;
 	}
 
 	/*if (item.getItemId() == R.id.action_example) {
@@ -251,7 +268,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 	return super.onOptionsItemSelected(item);
     }
-
+    
     /**
      * Per the navigation drawer design guidelines, updates the action bar to show the global app
      * 'context', rather than just what's in the current screen.
@@ -276,5 +293,7 @@ public class NavigationDrawerFragment extends Fragment {
 	 * Called when an item in the navigation drawer is selected.
 	 */
 	void onNavigationDrawerItemSelected(int position);
+	
+	void onAtualizar();
     }
 }

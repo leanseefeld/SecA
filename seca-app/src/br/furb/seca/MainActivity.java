@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.Toast;
 import br.furb.seca.controller.Controller;
 
 public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -19,6 +20,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    Controller c;
 
     private Fragment[] appFragments = { new DashboardFragment(0), // 
 	    new GradeHorariaFragment(1), //
@@ -39,7 +41,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	// Set up the drawer.
 	mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
-	Controller c = new Controller(this);
+	c = new Controller(this);
 	c.sincronizarWebService();
     }
 
@@ -110,6 +112,12 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	}
 	ActionBar actionBar = getActionBar();
 	actionBar.setTitle(mTitle);
+    }
+    
+    @Override
+    public void onAtualizar() {
+	Toast.makeText(this, "Sincronizando....", Toast.LENGTH_SHORT).show();
+	c.sincronizarWebService();
     }
 
 }

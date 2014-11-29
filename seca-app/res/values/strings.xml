@@ -20,5 +20,9 @@
     <string name="fim_do_compromisso">Fim do Compromisso</string>
     <string name="lembretes_optional">Lembretes(optional)</string>
     <string name="disciplinas_opcional">Disciplinas(opcional)</string>
+    <string name="title_activity_main_activityxxxx">MainActivityxxxx</string>
+    <string name="hello_world">Hello world!</string>
+
+    <string name="action_refresh">Refresh</string>
 
 </resources>
