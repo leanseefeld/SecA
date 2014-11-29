@@ -3,6 +3,7 @@ package br.furb.seca.model;
 public class Prova {
 
     private float nota;
+    private float peso; 
     private String nomeAvaliacao;
 
     public Prova(float nota, String nomeAvaliacao) {
@@ -10,12 +11,20 @@ public class Prova {
 	this.nomeAvaliacao = nomeAvaliacao;
     }
 
-    public final float getNota() {
+    public float getNota() {
 	return nota;
     }
 
-    public final String getNomeAvaliacao() {
+    public String getNomeAvaliacao() {
 	return nomeAvaliacao;
+    }
+
+    public float getPeso() {
+	return peso;
+    }
+
+    public void setPeso(float peso) {
+	this.peso = peso;
     }
 
 }
