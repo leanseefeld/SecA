@@ -17,6 +17,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     <color name="cor_branca">#FFFFFF</color>
+    <color name="cor_preta">#000000</color>
     
     <color name="cor_fundo">#EAEAEA</color>
     <style name="tam_texto_detalhes" parent="android:Widget.Holo.Light.TextView">
