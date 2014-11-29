@@ -1,7 +1,9 @@
 package br.furb.seca;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,33 +42,39 @@ public class DashboardCompromissoListAdapter extends ArrayAdapter<Compromisso> {
 
 	TextView txtTitulo = (TextView) row.findViewById(R.id.titulo_compromisso);
 	TextView txtDisciplina = (TextView) row.findViewById(R.id.disciplina_compromisso);
-	TextView txtData = (TextView) row.findViewById(R.id.data_compromisso);
+	TextView txtDataInicial = (TextView) row.findViewById(R.id.data_inicial_compromisso);
+	TextView txtDataFinal = (TextView) row.findViewById(R.id.data_final_compromisso);
 
 	txtTitulo.setText(compromisso.getTitulo());
 
 	if (compromisso.getDisciplina() != null) {
 	    txtDisciplina.setText(compromisso.getDisciplina().getNome());
-	}
-	else
-	{
+	} else {
 	    txtDisciplina.setVisibility(View.GONE);
 	}
 
+	txtDataInicial.setText("Inicio: " + this.MontaData(compromisso.getDataInicio(), compromisso.isDiaTodo()));
+	txtDataFinal.setText("Fim: " + this.MontaData(compromisso.getDataFim(), compromisso.isDiaTodo()));
+
+	return row;
+    }
+
+    @SuppressLint("DefaultLocale")
+    private String MontaData(Date data, Boolean ehDiaTodo) {
+	String dataSaida = "";
 	Calendar cal = Calendar.getInstance();
-	cal.setTime(compromisso.getDataInicio());
+	cal.setTime(data);
 
 	String diaSemana = DiaSemana.fromCodigo(cal.get(Calendar.DAY_OF_WEEK)).toString();
 	int dia = cal.get(Calendar.DAY_OF_MONTH);
 	int mes = cal.get(Calendar.MONTH);
 	int hora = cal.get(Calendar.HOUR);
 	int minuto = cal.get(Calendar.MINUTE);
-	if (compromisso.isDiaTodo()) {
-	    txtData.setText(String.format("%s, %02d/%02d", diaSemana, dia, mes));
+	if (ehDiaTodo) {
+	    dataSaida = String.format("%s, %02d/%02d", diaSemana, dia, mes);
 	} else {
-	    txtData.setText(String.format("%s, %02d/%02d - %02d:%02d", diaSemana, dia, mes, hora, minuto));
+	    dataSaida = String.format("%s, %02d/%02d - %02d:%02d", diaSemana, dia, mes, hora, minuto);
 	}
-
-	return row;
+	return dataSaida;
     }
-
 }

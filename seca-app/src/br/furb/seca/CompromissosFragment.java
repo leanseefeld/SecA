@@ -282,7 +282,7 @@ public class CompromissosFragment extends MyFragment {
 	    compromisso.setIsDiaTodo(true);
 	    cl.set(this.anoInicio, this.mesInicio, this.diaInicio, 0, 0);
 	    compromisso.setDataInicio(cl.getTime());
-	    cl.set(this.anoFim, this.mesFim, this.diaFim, 0, 0);
+	    cl.set(this.anoFim, this.mesFim, this.diaFim, 23, 59);
 	    compromisso.setDataFim(cl.getTime());
 	} else {
 	    compromisso.setIsDiaTodo(false);
@@ -380,6 +380,11 @@ public class CompromissosFragment extends MyFragment {
 	public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 	    timeListner.setTime(hourOfDay, minute);
 	}
+    }
+
+    @Override
+    void Atualizar() {
+	//Do Nothing
     }
 
 }

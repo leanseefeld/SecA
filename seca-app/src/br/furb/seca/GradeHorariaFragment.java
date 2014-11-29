@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 import br.furb.seca.controller.Controller;
 
 public class GradeHorariaFragment extends MyFragment {
@@ -30,4 +31,11 @@ public class GradeHorariaFragment extends MyFragment {
 
 	return v;
     }
+    
+    
+    @Override
+    void Atualizar() {
+	ListViewDiasSemana.setAdapter(new HorarioListAdapter(this.getActivity(), controller.buscarHorariosFormatados()));
+    }
+
 }

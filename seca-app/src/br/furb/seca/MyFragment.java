@@ -34,5 +34,7 @@ public abstract class MyFragment extends Fragment {
 	super.onAttach(activity);
 	((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
     }
+    
+    abstract void Atualizar();
 
 }

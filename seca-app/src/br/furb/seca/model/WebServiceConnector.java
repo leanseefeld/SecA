@@ -2,6 +2,7 @@ package br.furb.seca.model;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.Date;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
@@ -41,14 +42,19 @@ public class WebServiceConnector {
     private Aluno createMockAluno(Aluno aluno) {
 	Aluno mock = new Aluno(aluno.getCodigo(), aluno.getUsuario(), aluno.getNomeCompleto(), aluno.getSenha());
 
+	Calendar now = Calendar.getInstance();
+	now.add(Calendar.HOUR, 1);
+	Date dataInicial = now.getTime();
+	now.add(Calendar.HOUR, 5);
+	Date dataFinal = now.getTime();
+	
 	Compromisso compAllDay = new Compromisso();
 	compAllDay.setCodigo(983);
 	compAllDay.setTitulo("Comp Mock 01");
 	compAllDay.setDescricao("Descrição do compromisso mock");
 	compAllDay.setDiaTodo(true);
-	Calendar now = Calendar.getInstance();
-	compAllDay.setDataInicio(now.getTime());
-	compAllDay.setDataFim(now.getTime());
+	compAllDay.setDataInicio(dataInicial);
+	compAllDay.setDataFim(dataFinal);
 	compAllDay.addLembrete(10);
 	compAllDay.addLembrete(30);
 

@@ -65,4 +65,9 @@ public class DisciplinasFragment extends MyFragment {
 
 	return disciplinas;
     }
+    
+    @Override
+    void Atualizar() {
+	atualizaDisciplinas(this.getActivity());
+    }
 }

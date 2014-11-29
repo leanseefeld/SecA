@@ -6,7 +6,9 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.view.View;
 import android.widget.Toast;
+import br.furb.seca.R.menu;
 import br.furb.seca.controller.Controller;
 
 public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -20,9 +22,10 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
      * Used to store the last screen title. For use in {@link #restoreActionBar()}.
      */
     private CharSequence mTitle;
+    private MyFragment fragmentAtual;
     Controller c;
 
-    private Fragment[] appFragments = { new DashboardFragment(0), // 
+    private MyFragment[] appFragments = { new DashboardFragment(0), // 
 	    new GradeHorariaFragment(1), //
 	    new DisciplinasFragment(2), //
 	    new NotasFragment(3), //
@@ -64,7 +67,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	if (position < 0 || position >= appFragments.length) {
 	    return;
 	}
-	Fragment newFrag = appFragments[position];
+	this.fragmentAtual = appFragments[position];
 
 	boolean goingToDash = position == 0;
 	int enterAnim = goingToDash ? R.animator.pop_in : R.animator.slide_in_left;
@@ -72,7 +75,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
 	fragmentManager.beginTransaction() //
 		.setCustomAnimations(enterAnim, exitAnim) //
-		.replace(R.id.container, newFrag) //
+		.replace(R.id.container, this.fragmentAtual) //
 		.commit();
 
 	this.lastPosition = position;
@@ -113,11 +116,12 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	ActionBar actionBar = getActionBar();
 	actionBar.setTitle(mTitle);
     }
-    
+
     @Override
     public void onAtualizar() {
-	Toast.makeText(this, "Sincronizando....", Toast.LENGTH_SHORT).show();
 	c.sincronizarWebService();
+	if (this.fragmentAtual != null)
+	    this.fragmentAtual.Atualizar();
     }
 
 }

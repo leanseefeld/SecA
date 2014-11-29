@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="titulo"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <TextView
         android:id="@+id/disciplina_compromisso"
         style="@style/tam_texto_detalhes"
@@ -19,13 +19,21 @@
         android:layout_height="wrap_content"
         android:text="Disciplina"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <TextView
-        android:id="@+id/data_compromisso"
+        android:id="@+id/data_inicial_compromisso"
         style="@style/tam_texto_detalhes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data"
+        android:text="Data Inicial"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/data_final_compromisso"
+        style="@style/tam_texto_detalhes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Data Final"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

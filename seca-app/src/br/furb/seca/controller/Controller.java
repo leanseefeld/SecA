@@ -3,6 +3,7 @@ package br.furb.seca.controller;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -283,7 +284,18 @@ public class Controller {
 	values.put("dsTitulo", compromisso.getTitulo());
 	values.put("dsDescricao", compromisso.getDescricao());
 	values.put("dtDataInicio", DatabaseHelper.dateToSqLiteDate(compromisso.getDataInicio()));
-	values.put("dtDataFim", DatabaseHelper.dateToSqLiteDate(compromisso.getDataFim()));
+	
+	Date dataFinal = compromisso.getDataFim();
+	if(compromisso.isDiaTodo())
+	{
+	    Calendar cl = Calendar.getInstance();
+	    cl.setTime(dataFinal);
+	    cl.set(Calendar.HOUR, 23);
+	    cl.set(Calendar.MINUTE, 59);
+	    dataFinal = cl.getTime();
+	}
+	
+	values.put("dtDataFim", DatabaseHelper.dateToSqLiteDate(dataFinal));
 	values.put("flDiaTodo", compromisso.isDiaTodo());
 
 	if (compromisso.getDisciplina() != null) {
@@ -368,7 +380,7 @@ public class Controller {
 	StringBuilder builder = new StringBuilder();
 	builder.append(" SELECT nrCodigo, flDiaTodo, dsTitulo, dsDescricao, dtDataInicio, dtDataFim, fk_disciplina ");
 	builder.append(" FROM COMPROMISSO ");
-	builder.append(" WHERE dtDataInicio >= '").append(DatabaseHelper.dateToSqLiteDate(Calendar.getInstance().getTime()))
+	builder.append(" WHERE dtDataFim >= '").append(DatabaseHelper.dateToSqLiteDate(Calendar.getInstance().getTime()))
 		.append("' ");
 	builder.append(" ORDER BY dtDataInicio ");
 	builder.append(" LIMIT ").append(quantidade);
