@@ -1,8 +1,5 @@
 package br.furb.seca.service;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
 import br.furb.seca.model.Base;
 import br.furb.seca.model.Compromisso;
 import com.google.gson.Gson;
@@ -10,14 +7,12 @@ import com.google.gson.Gson;
 /**
  * @author gabri_000
  */
-@WebService(serviceName = "seca")
-public class Seca {
+public class SecA {
 
     /**
      * Operação de Web service
      */
-    @WebMethod(operationName = "Consultar")
-    public String Consultar(@WebParam(name = "Usuario") String Usuario, @WebParam(name = "Senha") String Senha) {
+    public String consultar(String Usuario, String Senha) {
 	Gson g = new Gson();
 	try (Base b = new Base()) {
 	    return g.toJson(b.montaAluno(Usuario, Senha));
@@ -30,9 +25,7 @@ public class Seca {
     /**
      * Operação de Web service
      */
-    @WebMethod(operationName = "InserirCompromisso")
-    public String InserirCompromisso(@WebParam(name = "compromisso") String compromisso,
-	    @WebParam(name = "codigoAluno") int codigoAluno) {
+    public String inserirCompromisso(String compromisso, int codigoAluno) {
 	Gson g = new Gson();
 	Compromisso c;
 	try {
