@@ -49,8 +49,8 @@ public class CompromissosFragment extends MyFragment {
     private Spinner cbo_disciplinas;
     private CheckBox cbx_dia_todo;
 
-    private EditText txtTempoLemprete;
-    private Spinner cboUnidadeTempo;
+    //private EditText txtTempoLemprete;
+    //private Spinner cboUnidadeTempo;
 
     int anoInicio;
     int mesInicio;
@@ -88,10 +88,10 @@ public class CompromissosFragment extends MyFragment {
 	btnExcluir = (Button) v.findViewById(R.id.btnExcluir);
 	cbo_disciplinas = (Spinner) v.findViewById(R.id.cbo_disciplinas);
 
-	txtTempoLemprete = (EditText) v.findViewById(R.id.txtTempoLemprete);
-	cboUnidadeTempo = (Spinner) v.findViewById(R.id.cboUnidadeTempo);
+	//txtTempoLemprete = (EditText) v.findViewById(R.id.txtTempoLemprete);
+	//cboUnidadeTempo = (Spinner) v.findViewById(R.id.cboUnidadeTempo);
 
-	txtTempoLemprete.setText("10");
+	//txtTempoLemprete.setText("10");
 	data_inicio.setOnClickListener(new OnClickListener() {
 
 	    @Override
@@ -197,8 +197,8 @@ public class CompromissosFragment extends MyFragment {
 	this.setDataFim(day, month, year);
 	this.setTempoFim(hour, minute);
 
-	cboUnidadeTempo.setAdapter(new SimpleAdapter(v.getContext(), getUnidadesTempo(),
-		android.R.layout.simple_spinner_item, from, to));
+	//cboUnidadeTempo.setAdapter(new SimpleAdapter(v.getContext(), getUnidadesTempo(),
+	//	android.R.layout.simple_spinner_item, from, to));
 
 	cbo_disciplinas.setAdapter(new SimpleAdapter(v.getContext(), getDisciplinas(),
 		android.R.layout.simple_spinner_item, from, to));
@@ -206,7 +206,7 @@ public class CompromissosFragment extends MyFragment {
 	return v;
     }
 
-    private List<Map<String, String>> getUnidadesTempo() {
+    /*private List<Map<String, String>> getUnidadesTempo() {
 	List<Map<String, String>> unidades = new ArrayList<Map<String, String>>();
 	HashMap<String, String> unidade = new HashMap<String, String>();
 	unidade.put("Valor", "Minutos");
@@ -220,7 +220,7 @@ public class CompromissosFragment extends MyFragment {
 	unidade.put("Valor", "Dias");
 	unidades.add(unidade);
 	return unidades;
-    }
+    }*/
 
     private List<Map<String, String>> getDisciplinas() {
 	List<Disciplina> disciplinas = controller.buscarDisciplinas();
@@ -292,7 +292,7 @@ public class CompromissosFragment extends MyFragment {
 	    compromisso.setDataFim(cl.getTime());
 	}
 
-	if (!txtTempoLemprete.getText().toString().isEmpty()) {
+	/*if (!txtTempoLemprete.getText().toString().isEmpty()) {
 	    int tempo_lembrete = Integer.valueOf(txtTempoLemprete.getText().toString());
 	    int posicao = cboUnidadeTempo.getSelectedItemPosition();
 	    switch (posicao) {
@@ -304,7 +304,7 @@ public class CompromissosFragment extends MyFragment {
 		    break;
 	    }
 	    compromisso.addLembrete(tempo_lembrete);
-	}
+	}*/
 	if (cbo_disciplinas.getSelectedItemPosition() > 0) {
 	    HashMap<String, String> disciplinaMap = (HashMap<String, String>) cbo_disciplinas.getSelectedItem();
 	    Disciplina disc = controller.buscarDisciplina(Integer.valueOf(disciplinaMap.get("_id")));

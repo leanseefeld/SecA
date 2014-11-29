@@ -273,11 +273,13 @@ public class Controller {
 	db.insert("HORARIO", null, values);
     }
 
-    @Deprecated
     public void gravarCompromisso(Compromisso compromisso) {
 	// TODO: ENVIAR PARA O WEBSERVICE, em uma Task para não travar a UI
 
 	SQLiteDatabase db = dbHelper.getWritableDatabase();
+	
+	dbHelper.insertCompromisso(db, compromisso);
+	/*
 	ContentValues values = new ContentValues();
 
 	//	    final Random numRandomico = new Random();
@@ -309,7 +311,7 @@ public class Controller {
 	    db.update("COMPROMISSO", values, "nrCodigo=?", new String[] { String.valueOf(compromisso.getCodigo()) });
 	}
 
-	this.gravarLembretes(compromisso);
+	this.gravarLembretes(compromisso);*/
     }
 
     public void gravarLembretes(Compromisso compromisso) {

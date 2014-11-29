@@ -135,10 +135,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.insert("HORARIO", null, values);
 	}
     }
-
-    private void insertCompromissos(SQLiteDatabase db, Collection<Compromisso> compromissos) {
-	for (Compromisso compromisso : compromissos) {
-	    ContentValues values = new ContentValues();
+    
+    public void insertCompromisso(SQLiteDatabase db, Compromisso compromisso){
+	ContentValues values = new ContentValues();
 	    values.put("nrCodigo", compromisso.getCodigo());
 	    values.put("dsTitulo", compromisso.getTitulo());
 	    values.put("dsDescricao", compromisso.getDescricao());
@@ -168,6 +167,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    values.put("dtDataFim", dateToSqLiteDate(dataFinal));
 	    values.put("flDiaTodo", compromisso.isDiaTodo());
 	    db.insert("COMPROMISSO", null, values);
+    }
+
+    private void insertCompromissos(SQLiteDatabase db, Collection<Compromisso> compromissos) {
+	for (Compromisso compromisso : compromissos) {
+	    insertCompromisso(db, compromisso);
 	}
     }
 
