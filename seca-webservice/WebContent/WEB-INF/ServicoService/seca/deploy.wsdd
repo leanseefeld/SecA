@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ServicoService WSDL service -->
+
+  <service name="Servico" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://seca"/>
+      <parameter name="wsdlServiceElement" value="ServicoService"/>
+      <parameter name="schemaQualified" value="http://seca"/>
+      <parameter name="wsdlServicePort" value="Servico"/>
+      <parameter name="className" value="seca.Servico"/>
+      <parameter name="wsdlPortType" value="Servico"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://seca" xmlns:retNS="http://seca" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="inserirCompromisso" qname="operNS:InserirCompromisso" returnQName="retNS:InserirCompromissoReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://seca" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:compromisso" type="tns:string"/>
+        <parameter xmlns:pns="http://seca" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:codigoAluno" type="tns:int"/>
+      </operation>
+      <operation xmlns:operNS="http://seca" xmlns:retNS="http://seca" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="consultar" qname="operNS:Consultar" returnQName="retNS:ConsultarReturn" returnType="rtns:string" soapAction="">
+        <parameter xmlns:pns="http://seca" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:Usuario" type="tns:string"/>
+        <parameter xmlns:pns="http://seca" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:Senha" type="tns:string"/>
+      </operation>
+      <parameter name="allowedMethods" value="inserirCompromisso consultar"/>
+
+  </service>
+</deployment>
