@@ -7,13 +7,16 @@ import java.util.List;
 public class Disciplina {
 
     private int codigo;
-    private Professor professor;
     private String nome;
+    private Professor professor;
     private final List<Prova> provas = new ArrayList<>(5);
     private final Collection<Horario> horarios = new ArrayList<>();
 
     public Disciplina() {
+    }
 
+    public Disciplina(String nome, String nomeProfessor) {
+	this(nomeProfessor, new Professor(-1, nomeProfessor));
     }
 
     public Disciplina(String nome, Professor professor) {
@@ -21,24 +24,20 @@ public class Disciplina {
 	this.professor = professor;
     }
 
-    public void setCodigo(int codigo) {
-	this.codigo = codigo;
+    public int getCodigo() {
+	return codigo;
     }
 
-    public void setNome(String nome) {
-	this.nome = nome;
+    public void setCodigo(int codigo) {
+	this.codigo = codigo;
     }
 
     public String getNome() {
 	return this.nome;
     }
 
-    public int getCodigo() {
-	return codigo;
-    }
-
-    public List<Prova> getProvas() {
-	return provas;
+    public void setNome(String nome) {
+	this.nome = nome;
     }
 
     public Professor getProfessor() {
@@ -53,12 +52,16 @@ public class Disciplina {
 	this.provas.add(prova);
     }
 
-    public Collection<Horario> getHorarios() {
-	return horarios;
+    public List<Prova> getProvas() {
+	return provas;
     }
 
     public void addHorario(Horario horario) {
 	this.horarios.add(horario);
+    }
+
+    public Collection<Horario> getHorarios() {
+	return horarios;
     }
 
     @Override

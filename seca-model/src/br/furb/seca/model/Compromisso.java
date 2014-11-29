@@ -7,8 +7,8 @@ import java.util.List;
 public class Compromisso {
 
     private long codigo;
-    private String descricao;
     private String titulo;
+    private String descricao;
     private Date dataInicio;
     private Date dataFim;
     private boolean isDiaTodo;
@@ -19,8 +19,44 @@ public class Compromisso {
 	this.lembretes = new ArrayList<>();
     }
 
-    public void addLembrete(Integer minutosAntecedencia) {
-	this.lembretes.add(minutosAntecedencia);
+    public long getCodigo() {
+	return codigo;
+    }
+
+    public void setCodigo(long codigo) {
+	this.codigo = codigo;
+    }
+
+    public String getTitulo() {
+	return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+	this.titulo = titulo;
+    }
+
+    public String getDescricao() {
+	return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+	this.descricao = descricao;
+    }
+
+    public Date getDataInicio() {
+	return dataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+	this.dataInicio = dataInicio;
+    }
+
+    public Date getDataFim() {
+	return dataFim;
+    }
+
+    public void setDataFim(Date dataFim) {
+	this.dataFim = dataFim;
     }
 
     /**
@@ -39,100 +75,24 @@ public class Compromisso {
 	this.isDiaTodo = isDiaTodo;
     }
 
-    public String getDescricao() {
-	return descricao;
-    }
-
-    /**
-     * @param descricao
-     *            the descricao to set
-     */
-    public void setDescricao(String descricao) {
-	this.descricao = descricao;
-    }
-
-    public String getTitulo() {
-	return titulo;
-    }
-
-    /**
-     * @param titulo
-     *            the titulo to set
-     */
-    public void setTitulo(String titulo) {
-	this.titulo = titulo;
-    }
-
-    public Date getDataInicio() {
-	return dataInicio;
-    }
-
-    /**
-     * @param dataInicio
-     *            the dataInicio to set
-     */
-    public void setDataInicio(Date dataInicio) {
-	this.dataInicio = dataInicio;
-    }
-
-    public Date getDataFim() {
-	return dataFim;
-    }
-
-    /**
-     * @param dataFim
-     *            the dataFim to set
-     */
-    public void setDataFim(Date dataFim) {
-	this.dataFim = dataFim;
-    }
-
-    public Disciplina getDisciplina() {
-	return disciplina;
-    }
-
-    public long getCodigo() {
-	return codigo;
-    }
-
-    /**
-     * @param lembretes
-     *            the lembretes to set
-     */
-    public void setLembretes(List<Integer> lembretes) {
-	this.lembretes = lembretes;
-    }
-
-    /**
-     * @param codigo
-     *            the codigo to set
-     */
-    public void setCodigo(long codigo) {
-	this.codigo = codigo;
+    public void addLembrete(Integer minutosAntecedencia) {
+	this.lembretes.add(minutosAntecedencia);
     }
 
     public List<Integer> getLembretes() {
 	return lembretes;
     }
 
-    /**
-     * @param disciplina
-     *            the disciplina to set
-     */
+    public void setLembretes(List<Integer> lembretes) {
+	this.lembretes = lembretes;
+    }
+
+    public Disciplina getDisciplina() {
+	return disciplina;
+    }
+
     public void setDisciplina(Disciplina disciplina) {
 	this.disciplina = disciplina;
-    }
-
-    public void setIsDiaTodo(boolean isDiaTodo) {
-	this.isDiaTodo = isDiaTodo;
-    }
-
-    /**
-     * @return the isDiaTodo
-     */
-    @Deprecated
-    public boolean isIsDiaTodo() {
-	return isDiaTodo;
     }
 
 }

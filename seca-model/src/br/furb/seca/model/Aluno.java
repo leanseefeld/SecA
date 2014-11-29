@@ -12,6 +12,12 @@ public class Aluno {
     private final Collection<Compromisso> compromissos = new ArrayList<>();
     private final Collection<Disciplina> disciplinas = new ArrayList<>();
 
+    public Aluno(long codigo, String usuario, String nomeCompleto) {
+	this.codigo = codigo;
+	this.usuario = usuario;
+	this.nomeCompleto = nomeCompleto;
+    }
+
     public Aluno(long codigo, String usuario, String nomeCompleto, byte[] senha) {
 	this.codigo = codigo;
 	this.usuario = usuario;
@@ -19,36 +25,44 @@ public class Aluno {
 	this.senha = senha;
     }
 
-    public final long getCodigo() {
+    public long getCodigo() {
 	return codigo;
     }
 
-    public final String getUsuario() {
+    public String getUsuario() {
 	return usuario;
     }
 
-    public final byte[] getSenha() {
+    public byte[] getSenha() {
 	return senha;
     }
 
-    public final String getNomeCompleto() {
+    public void setSenha(byte[] senha) {
+	this.senha = senha;
+    }
+
+    public String getNomeCompleto() {
 	return nomeCompleto;
     }
 
-    public Collection<Compromisso> getCompromissos() {
-	return compromissos;
-    }
-
-    public Collection<Disciplina> getDisciplinas() {
-	return disciplinas;
+    public void setNomeCompleto(String nomeCompleto) {
+	this.nomeCompleto = nomeCompleto;
     }
 
     public void addCompromisso(Compromisso compromisso) {
 	this.compromissos.add(compromisso);
     }
 
+    public Collection<Compromisso> getCompromissos() {
+	return compromissos;
+    }
+
     public void addDisciplina(Disciplina disciplina) {
 	this.disciplinas.add(disciplina);
+    }
+
+    public Collection<Disciplina> getDisciplinas() {
+	return disciplinas;
     }
 
 }

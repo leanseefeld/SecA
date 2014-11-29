@@ -287,18 +287,17 @@ public class Controller {
 	values.put("dsTitulo", compromisso.getTitulo());
 	values.put("dsDescricao", compromisso.getDescricao());
 	values.put("dtDataInicio", DatabaseHelper.dateToSqLiteDate(compromisso.getDataInicio()));
-	
+
 	Date dataFinal = compromisso.getDataFim();
-	
-	if(compromisso.isDiaTodo())
-	{
+
+	if (compromisso.isDiaTodo()) {
 	    Calendar cl = Calendar.getInstance();
 	    cl.setTime(dataFinal);
 	    cl.set(Calendar.HOUR, 23);
 	    cl.set(Calendar.MINUTE, 59);
 	    dataFinal = cl.getTime();
 	}
-	
+
 	values.put("dtDataFim", DatabaseHelper.dateToSqLiteDate(dataFinal));
 	values.put("flDiaTodo", compromisso.isDiaTodo());
 
@@ -380,8 +379,8 @@ public class Controller {
 	StringBuilder builder = new StringBuilder();
 	builder.append(" SELECT nrCodigo, flDiaTodo, dsTitulo, dsDescricao, dtDataInicio, dtDataFim, fk_disciplina ");
 	builder.append(" FROM COMPROMISSO ");
-	builder.append(" WHERE dtDataFim >= '").append(DatabaseHelper.dateToSqLiteDate(Calendar.getInstance().getTime()))
-		.append("' ");
+	builder.append(" WHERE dtDataFim >= '")
+		.append(DatabaseHelper.dateToSqLiteDate(Calendar.getInstance().getTime())).append("' ");
 	builder.append(" ORDER BY dtDataInicio ");
 	builder.append(" LIMIT ").append(quantidade);
 
@@ -391,7 +390,7 @@ public class Controller {
 	    int idx = 0;
 	    Compromisso compromisso = new Compromisso();
 	    compromisso.setCodigo(cursor.getInt(idx++));
-	    compromisso.setIsDiaTodo(cursor.getInt(idx++) != 0);
+	    compromisso.setDiaTodo(cursor.getInt(idx++) != 0);
 	    compromisso.setTitulo(cursor.getString(idx++));
 	    compromisso.setDescricao(cursor.getString(idx++));
 	    compromisso.setDataInicio(DatabaseHelper.dateSqLiteToDate(cursor.getString(idx++)));

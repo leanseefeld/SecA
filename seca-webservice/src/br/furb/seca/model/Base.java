@@ -4,10 +4,11 @@
  * and open the template in the editor.
  */
 
-package seca;
+package br.furb.seca.model;
 
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -179,54 +180,30 @@ public class Base {
         {
             Statement stm1 = con.createStatement();  
             
-            String s = ""
-                    + "INSERT INTO "
-                    + "COMPROMISSO"
-                    + "("         
-                    + " codigo_aluno, "
-                    + " data_ini, data_fim, "
-                    + " titulo, "
-                    + " descricao, "
-                    + " codigo_disciplina"
-                    + ")"
-                    + "VALUES "
-                    + "("
-                    + " ?, "
-                    + " ?, "
-                    +  "?, "
-                    + " ?, "
-                    + " ?, "
-                    + " ?"
-                    + ")";
+            String s = "INSERT INTO COMPROMISSO (codigo_aluno, data_ini, data_fim, titulo, descricao, codigo_disciplina) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = con.prepareStatement(s);
             ps.setInt(1, codigoALuno);
-            ps.setDate(2, c.getDataInicio());
-            ps.setDate(3, c.getDataFim());
+            ps.setDate(2, new Date(c.getDataInicio().getTime()));
+            ps.setDate(3, new Date(c.getDataFim().getTime()));
             ps.setString(4, c.getTitulo());
             ps.setString(5, c.getDescricao());
             if (c.getDisciplina() != null)
             {
                 ps.setInt(6, c.getDisciplina().getCodigo());
-            }
-            else
-            {
-                ps.setInt(6, 0);
-            }
-            ps.execute();
-                    
-            String sSelect = "SELECT MAX(CODIGO_COMP) as cod FROM COMPROMISSO ";
-            ResultSet r1 = stm1.executeQuery(s);
-            c.setCodigo(r1.getInt("cod"));
-            return c;
-           
-            
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        return null;
+            } else {
+		ps.setInt(6, 0);
+	    }
+	    ps.execute();
+
+	    String sSelect = "SELECT MAX(CODIGO_COMP) as cod FROM COMPROMISSO ";
+	    ResultSet r1 = stm1.executeQuery(s);
+	    c.setCodigo(r1.getInt("cod"));
+	    return c;
+
+	} catch (Exception e) {
+	    e.printStackTrace();
+	}
+	return null;
     }
-    
-    
+
 }

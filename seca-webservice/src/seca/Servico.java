@@ -6,10 +6,12 @@
 
 package seca;
 
-import com.google.gson.Gson;
-import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.jws.WebService;
+import br.furb.seca.model.Base;
+import br.furb.seca.model.Compromisso;
+import com.google.gson.Gson;
 
 /** 
  *

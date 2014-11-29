@@ -1,6 +1,6 @@
 package br.furb.seca.model;
 
-public class Professor {
+public class Professor implements LazyLoadable {
 
     private int codigo;
     private String nome;
@@ -25,6 +25,16 @@ public class Professor {
 
     public void setNome(String nome) {
 	this.nome = nome;
+    }
+
+    @Override
+    public boolean isLoaded() {
+	return loaded;
+    }
+
+    @Override
+    public void setLoaded(boolean loaded) {
+	this.loaded = loaded;
     }
 
 }

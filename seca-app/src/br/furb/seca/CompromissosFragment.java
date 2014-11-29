@@ -279,13 +279,13 @@ public class CompromissosFragment extends MyFragment {
 	compromisso.setDescricao(descricao_compromisso.getText().toString());
 	Calendar cl = Calendar.getInstance();
 	if (cbx_dia_todo.isChecked()) {
-	    compromisso.setIsDiaTodo(true);
+	    compromisso.setDiaTodo(true);
 	    cl.set(this.anoInicio, this.mesInicio, this.diaInicio, 0, 0);
 	    compromisso.setDataInicio(cl.getTime());
 	    cl.set(this.anoFim, this.mesFim, this.diaFim, 23, 59);
 	    compromisso.setDataFim(cl.getTime());
 	} else {
-	    compromisso.setIsDiaTodo(false);
+	    compromisso.setDiaTodo(false);
 	    cl.set(this.anoInicio, this.mesInicio, this.diaInicio, this.horaInicio, this.minutoInicio);
 	    compromisso.setDataInicio(cl.getTime());
 	    cl.set(this.anoFim, this.mesFim, this.diaFim, this.horaFim, this.minutoFim);
