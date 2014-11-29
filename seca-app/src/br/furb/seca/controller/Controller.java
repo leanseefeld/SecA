@@ -273,6 +273,7 @@ public class Controller {
 	db.insert("HORARIO", null, values);
     }
 
+    @Deprecated
     public void gravarCompromisso(Compromisso compromisso) {
 	// TODO: ENVIAR PARA O WEBSERVICE, em uma Task para não travar a UI
 
@@ -286,6 +287,7 @@ public class Controller {
 	values.put("dtDataInicio", DatabaseHelper.dateToSqLiteDate(compromisso.getDataInicio()));
 	
 	Date dataFinal = compromisso.getDataFim();
+	
 	if(compromisso.isDiaTodo())
 	{
 	    Calendar cl = Calendar.getInstance();
@@ -302,13 +304,9 @@ public class Controller {
 	    values.put("fk_disciplina", compromisso.getDisciplina().getCodigo());
 	}
 	if (compromisso.getCodigo() == 0) {
-	    // TODO: verificar isso com Leander
 	    compromisso.setCodigo(db.insert("COMPROMISSO", null, values));
-
-	    Log.d("MEU", "ID do compromisso gravado: " + compromisso.getCodigo());
 	} else {
 	    db.update("COMPROMISSO", values, "nrCodigo=?", new String[] { String.valueOf(compromisso.getCodigo()) });
-	    Log.d("MEU", "compromisso " + compromisso.getCodigo() + " - " + compromisso.getTitulo() + " alterado");
 	}
 
 	this.gravarLembretes(compromisso);

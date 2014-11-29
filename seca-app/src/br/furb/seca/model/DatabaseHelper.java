@@ -1,11 +1,15 @@
 package br.furb.seca.model;
 
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import br.furb.seca.controller.Controller;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -138,8 +142,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    values.put("nrCodigo", compromisso.getCodigo());
 	    values.put("dsTitulo", compromisso.getTitulo());
 	    values.put("dsDescricao", compromisso.getDescricao());
-	    values.put("dtDataInicio", dateToSqLiteDate(compromisso.getDataInicio()));
-	    values.put("dtDataFim", dateToSqLiteDate(compromisso.getDataFim()));
+
+	    Date dataInicial = compromisso.getDataInicio();
+	    Date dataFinal = compromisso.getDataFim();
+
+	    if (compromisso.isDiaTodo()) {
+		
+		Calendar cl = Calendar.getInstance();
+		
+		cl.setTime(dataInicial);
+		cl.set(Calendar.HOUR, 0);
+		cl.set(Calendar.MINUTE, 0);
+		cl.set(Calendar.AM_PM, Calendar.AM);
+		dataInicial = cl.getTime();
+
+		cl.setTime(dataFinal);
+		cl.set(Calendar.HOUR, 11);
+		cl.set(Calendar.MINUTE, 59);
+		cl.set(Calendar.AM_PM, Calendar.PM);
+		dataFinal = cl.getTime();
+		Log.d("MEU", "Data Final: " + cl.getTime().toString());
+	    }
+
+	    values.put("dtDataInicio", dateToSqLiteDate(dataInicial));
+	    values.put("dtDataFim", dateToSqLiteDate(dataFinal));
 	    values.put("flDiaTodo", compromisso.isDiaTodo());
 	    db.insert("COMPROMISSO", null, values);
 	}
