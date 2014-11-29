@@ -4,21 +4,21 @@
  * and open the template in the editor.
  */
 
-package seca;
+package br.furb.seca.service;
 
-import javax.jws.WebMethod;
-import javax.jws.WebParam;
-import javax.jws.WebService;
 import br.furb.seca.model.Base;
 import br.furb.seca.model.Compromisso;
 import com.google.gson.Gson;
+import javax.jws.WebService;
+import javax.jws.WebMethod;
+import javax.jws.WebParam;
 
 /** 
  *
  * @author gabri_000
  */
 @WebService(serviceName = "seca")
-public class Servico {
+public class Seca {
 
     /**
      * Operação de Web service
