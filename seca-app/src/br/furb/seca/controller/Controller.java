@@ -75,7 +75,7 @@ public class Controller {
 
 	// TODO: pegar do Android.manifest ou outro lugar que não seja hard coded
 	WebServiceConnector wsConnector = new WebServiceConnector(
-		"http://10.1.1.3:8080/seca-webservice/services/SecA?wsdl");
+		"http://leanseefeld.ddns.net:14721/seca-webservice/services/SecA?wsdl");
 
 	WebServiceTask wsTask = new WebServiceTask(wsConnector, this);
 	wsTask.execute(getCurrentAluno());
