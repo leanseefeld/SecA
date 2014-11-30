@@ -3,18 +3,55 @@
     android:id="@+id/LinearLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cor_fundo"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@color/cor_fundo"
     tools:context="br.furb.seca.MainActivity$PlaceholderFragment" >
 
     <TextView
-        android:id="@+id/section_label"
-        android:layout_width="wrap_content"
+        android:id="@+id/nome_disciplina"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/title_notas" />
+        android:gravity="center"
+        android:text="Disciplina"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Média: "
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/media_notas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Média"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/notas_disciplina"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true"
+        android:divider="@color/cor_fundo"
+        android:dividerHeight="1dp"
+        android:drawSelectorOnTop="false"
+        android:duplicateParentState="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:longClickable="false"
+        android:scrollbars="none" >
+    </ListView>
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package br.furb.seca.controller;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -21,6 +23,7 @@ import br.furb.seca.model.DiaSemana;
 import br.furb.seca.model.Disciplina;
 import br.furb.seca.model.Horario;
 import br.furb.seca.model.Professor;
+import br.furb.seca.model.Prova;
 import br.furb.seca.model.WebServiceConnector;
 
 public class Controller {
@@ -277,7 +280,7 @@ public class Controller {
 	// TODO: ENVIAR PARA O WEBSERVICE, em uma Task para não travar a UI
 
 	SQLiteDatabase db = dbHelper.getWritableDatabase();
-	
+
 	dbHelper.insertCompromisso(db, compromisso);
 	/*
 	ContentValues values = new ContentValues();
@@ -338,6 +341,8 @@ public class Controller {
 	    disc.setCodigo(cursor.getInt(idx++));
 	    disc.setNome(cursor.getString(idx++));
 	    disc.setProfessor(professor);
+	    disc.setProvas(this.buscarProvas(disc.getCodigo()));
+
 	    disciplinas.add(disc);
 
 	    cursor.moveToNext();
@@ -346,27 +351,56 @@ public class Controller {
 	return disciplinas;
     }
 
+    public List<Prova> buscarProvas(int codigoDisciplina) {
+	List<Prova> provas = new ArrayList<Prova>();
+	SQLiteDatabase db = dbHelper.getReadableDatabase();
+
+	StringBuilder builder = new StringBuilder();
+	builder.append(" SELECT dsNome, vlNota, vlPeso ");
+	builder.append(" FROM PROVA ");
+	builder.append(" WHERE fk_disciplina = ").append(codigoDisciplina);
+
+	Cursor cursor = db.rawQuery(builder.toString(), null);
+	cursor.moveToFirst();
+	while (!cursor.isAfterLast()) {
+	    int idx = 0;
+	    Prova prova = new Prova();
+
+	    prova.setNomeAvaliacao(cursor.getString(idx++));
+	    prova.setNota(cursor.getFloat(idx++));
+	    prova.setPeso(cursor.getFloat(idx++));
+
+	    provas.add(prova);
+	    cursor.moveToNext();
+	}
+
+	return provas;
+    }
+
     public Disciplina buscarDisciplina(long codigo) {
 	Disciplina disciplina = null;
 	SQLiteDatabase db = dbHelper.getReadableDatabase();
 
 	StringBuilder builder = new StringBuilder();
-	builder.append(" SELECT PROFESSOR.nrCodigo, PROFESSOR.dsNome, ");
+	builder.append(" SELECT ");
+	builder.append(" PROFESSOR.nrCodigo, PROFESSOR.dsNome, ");
 	builder.append(" DISCIPLINA.nrCodigo, DISCIPLINA.dsNome ");
 	builder.append(" FROM DISCIPLINA ");
-	builder.append(" INNER JOIN PROFESSOR ");
+	builder.append(" LEFT JOIN PROFESSOR ");
 	builder.append(" ON PROFESSOR.nrCodigo = DISCIPLINA.fk_professor ");
-	builder.append(" WHERE DISCIPLINA.nrCodigo = ?");
+	builder.append(" WHERE DISCIPLINA.nrCodigo = ").append(codigo);
 
-	Cursor cursor = db.rawQuery(builder.toString(), new String[] { String.valueOf(codigo) });
+	Cursor cursor = db.rawQuery(builder.toString(), null);
 	cursor.moveToFirst();
 	if (cursor.isAfterLast() == false) {
 	    int idx = 0;
 	    Professor professor = new Professor(cursor.getInt(idx++), cursor.getString(idx++));
-	    Disciplina disc = new Disciplina();
-	    disc.setCodigo(cursor.getInt(idx++));
-	    disc.setNome(cursor.getString(idx++));
-	    disc.setProfessor(professor);
+	    disciplina = new Disciplina();
+	    disciplina.setCodigo(cursor.getInt(idx++));
+	    disciplina.setNome(cursor.getString(idx++));
+	    disciplina.setProfessor(professor);
+
+	    disciplina.setProvas(this.buscarProvas(disciplina.getCodigo()));
 	}
 
 	return disciplina;
@@ -402,6 +436,24 @@ public class Controller {
 	    cursor.moveToNext();
 	}
 	return compromissos;
+    }
+    
+    public String calcularMedia(List<Prova> provas)
+    {
+	if(provas.isEmpty())
+	    return "-";
+	float notaTotal = 0;
+	float pesoTotal = 0;
+	for (Prova prova : provas) {
+	    notaTotal += (prova.getNota() * prova.getPeso());
+	    pesoTotal += prova.getPeso();
+	}
+	
+	float media = notaTotal / pesoTotal;
+	
+	DecimalFormat df = new DecimalFormat("0.00");
+	df.setRoundingMode(RoundingMode.DOWN);
+	return df.format(media);
     }
 
 }

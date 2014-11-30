@@ -3,6 +3,7 @@ package br.furb.seca;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,9 +33,11 @@ public abstract class MyFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
 	super.onAttach(activity);
-	((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+	if (getArguments() != null && getArguments().containsKey(ARG_SECTION_NUMBER)) {
+	    ((MainActivity) activity).onSectionAttached(getArguments().getInt(ARG_SECTION_NUMBER));
+	}
     }
-    
+
     abstract void Atualizar();
 
 }

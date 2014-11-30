@@ -73,12 +73,36 @@ public class WebServiceConnector {
 	mock.addCompromisso(compPartDay);
 
 	Disciplina disciplina = new Disciplina("Soneca", new Professor(234, "Soniferus Bonzins"));
+	disciplina.setCodigo(1);
 	Horario horario1D1 = new Horario();
 	horario1D1.setDiaSemana(DiaSemana.QUARTA);
-	horario1D1.setPeriodo(Periodo._13);
+	horario1D1.setPeriodo(Periodo._12);
 	horario1D1.setSala("S-309/1");
 	horario1D1.setDisciplina(disciplina);
 	disciplina.addHorario(horario1D1);
+
+	mock.addDisciplina(disciplina);
+	
+	disciplina = new Disciplina("Sistemas TudoJunto", new Professor(1, "Chaves"));
+	disciplina.setCodigo(2);
+	horario1D1 = new Horario();
+	horario1D1.setDiaSemana(DiaSemana.QUARTA);
+	horario1D1.setPeriodo(Periodo._14);
+	horario1D1.setSala("S-666/1");
+	horario1D1.setDisciplina(disciplina);
+	horario1D1 = new Horario();
+	horario1D1.setDiaSemana(DiaSemana.QUARTA);
+	horario1D1.setPeriodo(Periodo._15);
+	horario1D1.setSala("S-666/1");
+	horario1D1.setDisciplina(disciplina);
+	disciplina.addHorario(horario1D1);
+	
+	disciplina.addProva(new Prova(9, 1F, "Prova A"));
+	disciplina.addProva(new Prova(6, 1F, "Prova B"));
+	disciplina.addProva(new Prova(9, 1F, "Prova C"));
+	disciplina.addProva(new Prova(6, 1F, "Prova D"));
+	disciplina.addProva(new Prova(7, 0.2F, "Trabalho A"));
+	disciplina.addProva(new Prova(2, 0.2F, "Tabalho B"));
 
 	mock.addDisciplina(disciplina);
 

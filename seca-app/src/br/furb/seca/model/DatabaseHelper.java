@@ -3,8 +3,8 @@ package br.furb.seca.model;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+import java.util.HashMap;
+import java.util.Map;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,6 +37,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	builder.append("   dsNome text, ");
 	builder.append("   fk_professor, ");
 	builder.append("   FOREIGN KEY(fk_professor) REFERENCES PROFESSOR(nrCodigo) ");
+	builder.append(" )");
+	db.execSQL(builder.toString());
+
+	builder = new StringBuilder();
+	builder.append(" CREATE TABLE PROVA(");
+	builder.append("   dsNome text, ");
+	builder.append("   vlNota real, ");
+	builder.append("   vlPeso real, ");
+	builder.append("   fk_disciplina, ");
+	builder.append("   FOREIGN KEY(fk_disciplina) REFERENCES DISCIPLINA(nrCodigo) ");
 	builder.append(" )");
 	db.execSQL(builder.toString());
 
@@ -89,6 +99,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.delete("HORARIO", null, null);
 	    db.delete("COMPROMISSO", null, null);
 	    db.delete("LEMBRETE", null, null);
+	    db.delete("PROVA", null, null);
 	} finally {
 	    db.close();
 	}
@@ -99,6 +110,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	try {
 	    insertCompromissos(db, aluno.getCompromissos());
 	    insertDisciplinas(db, aluno.getDisciplinas());
+
+	    Map<Integer, Professor> professores = new HashMap<Integer, Professor>();
+	    for (Disciplina disciplina : aluno.getDisciplinas()) {
+		insertProvas(db, disciplina.getProvas(), disciplina.getCodigo());
+		professores.put(disciplina.getProfessor().getCodigo(), disciplina.getProfessor());
+	    }
+
+	    for (Map.Entry<Integer, Professor> entry : professores.entrySet()) {
+		insertProfessor(db, entry.getValue());
+	    }
+
 	} finally {
 	    db.close();
 	}
@@ -106,8 +128,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     private void insertDisciplinas(SQLiteDatabase db, Collection<Disciplina> disciplinas) {
 	for (Disciplina disciplina : disciplinas) {
-	    insertProfessor(db, disciplina.getProfessor());
-
 	    ContentValues values = new ContentValues();
 	    values.put("nrCodigo", disciplina.getCodigo());
 	    values.put("dsNome", disciplina.getNome());
@@ -135,38 +155,49 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.insert("HORARIO", null, values);
 	}
     }
-    
-    public void insertCompromisso(SQLiteDatabase db, Compromisso compromisso){
+
+    private void insertProvas(SQLiteDatabase db, Collection<Prova> provas, int codigoDisciplina) {
+	for (Prova prova : provas) {
+	    ContentValues values = new ContentValues();
+	    values.put("dsNome", prova.getNomeAvaliacao());
+	    values.put("vlNota", prova.getNota());
+	    values.put("vlPeso", prova.getPeso());
+	    values.put("fk_disciplina", codigoDisciplina);
+	    db.insert("PROVA", null, values);
+	}
+    }
+
+    public void insertCompromisso(SQLiteDatabase db, Compromisso compromisso) {
 	ContentValues values = new ContentValues();
-	    values.put("nrCodigo", compromisso.getCodigo());
-	    values.put("dsTitulo", compromisso.getTitulo());
-	    values.put("dsDescricao", compromisso.getDescricao());
+	values.put("nrCodigo", compromisso.getCodigo());
+	values.put("dsTitulo", compromisso.getTitulo());
+	values.put("dsDescricao", compromisso.getDescricao());
 
-	    Date dataInicial = compromisso.getDataInicio();
-	    Date dataFinal = compromisso.getDataFim();
+	Date dataInicial = compromisso.getDataInicio();
+	Date dataFinal = compromisso.getDataFim();
 
-	    if (compromisso.isDiaTodo()) {
-		
-		Calendar cl = Calendar.getInstance();
-		
-		cl.setTime(dataInicial);
-		cl.set(Calendar.HOUR, 0);
-		cl.set(Calendar.MINUTE, 0);
-		cl.set(Calendar.AM_PM, Calendar.AM);
-		dataInicial = cl.getTime();
+	if (compromisso.isDiaTodo()) {
 
-		cl.setTime(dataFinal);
-		cl.set(Calendar.HOUR, 11);
-		cl.set(Calendar.MINUTE, 59);
-		cl.set(Calendar.AM_PM, Calendar.PM);
-		dataFinal = cl.getTime();
-		Log.d("MEU", "Data Final: " + cl.getTime().toString());
-	    }
+	    Calendar cl = Calendar.getInstance();
 
-	    values.put("dtDataInicio", dateToSqLiteDate(dataInicial));
-	    values.put("dtDataFim", dateToSqLiteDate(dataFinal));
-	    values.put("flDiaTodo", compromisso.isDiaTodo());
-	    db.insert("COMPROMISSO", null, values);
+	    cl.setTime(dataInicial);
+	    cl.set(Calendar.HOUR, 0);
+	    cl.set(Calendar.MINUTE, 0);
+	    cl.set(Calendar.AM_PM, Calendar.AM);
+	    dataInicial = cl.getTime();
+
+	    cl.setTime(dataFinal);
+	    cl.set(Calendar.HOUR, 11);
+	    cl.set(Calendar.MINUTE, 59);
+	    cl.set(Calendar.AM_PM, Calendar.PM);
+	    dataFinal = cl.getTime();
+	    Log.d("MEU", "Data Final: " + cl.getTime().toString());
+	}
+
+	values.put("dtDataInicio", dateToSqLiteDate(dataInicial));
+	values.put("dtDataFim", dateToSqLiteDate(dataFinal));
+	values.put("flDiaTodo", compromisso.isDiaTodo());
+	db.insert("COMPROMISSO", null, values);
     }
 
     private void insertCompromissos(SQLiteDatabase db, Collection<Compromisso> compromissos) {

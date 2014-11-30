@@ -23,7 +23,6 @@
         android:headerDividersEnabled="false"
         android:longClickable="false"
         android:scrollbars="none" >
-
     </ListView>
     
 </LinearLayout>

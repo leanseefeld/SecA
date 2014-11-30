@@ -9,10 +9,12 @@ public class Disciplina {
     private int codigo;
     private String nome;
     private Professor professor;
-    private final List<Prova> provas = new ArrayList<>(5);
-    private final Collection<Horario> horarios = new ArrayList<>();
+    private List<Prova> provas;
+    private Collection<Horario> horarios;
 
     public Disciplina() {
+	provas = new ArrayList<>(5);
+	horarios = new ArrayList<>();
     }
 
     public Disciplina(String nome, String nomeProfessor) {
@@ -20,6 +22,7 @@ public class Disciplina {
     }
 
     public Disciplina(String nome, Professor professor) {
+	this();
 	this.nome = nome;
 	this.professor = professor;
     }
@@ -62,6 +65,10 @@ public class Disciplina {
 
     public Collection<Horario> getHorarios() {
 	return horarios;
+    }
+
+    public void setProvas(List<Prova> provas) {
+	this.provas = provas;
     }
 
     @Override
