@@ -2,6 +2,7 @@ package br.furb.seca.model;
 
 import java.net.ConnectException;
 import android.os.AsyncTask;
+import android.util.Log;
 import br.furb.seca.controller.Controller;
 
 public class WebServiceTask extends AsyncTask<Aluno, Void, Aluno> {
@@ -24,6 +25,7 @@ public class WebServiceTask extends AsyncTask<Aluno, Void, Aluno> {
 	    return wsConnector.carregarAluno(alunos[0]);
 	} catch (Exception ex) {
 	    this.exception = ex;
+	    Log.e("SecA-sync", "failure", ex);
 	    return null;
 	}
     }
