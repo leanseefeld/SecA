@@ -376,7 +376,7 @@ public class Controller {
 	SQLiteDatabase db = dbHelper.getReadableDatabase();
 
 	StringBuilder builder = new StringBuilder();
-	builder.append(" SELECT dsNome, vlNota, vlPeso ");
+	builder.append(" SELECT vlNota, vlPeso, dsNome ");
 	builder.append(" FROM PROVA ");
 	builder.append(" WHERE fk_disciplina = ").append(codigoDisciplina);
 
@@ -384,12 +384,9 @@ public class Controller {
 	cursor.moveToFirst();
 	while (!cursor.isAfterLast()) {
 	    int idx = 0;
-	    Prova prova = new Prova();
-
-	    prova.setNomeAvaliacao(cursor.getString(idx++));
-	    prova.setNota(cursor.getFloat(idx++));
-	    prova.setPeso(cursor.getFloat(idx++));
-
+	    Prova prova = new Prova(cursor.getFloat(idx++), // nota 
+		    cursor.getFloat(idx++), // peso
+		    cursor.getString(idx++)); // nome
 	    provas.add(prova);
 	    cursor.moveToNext();
 	}

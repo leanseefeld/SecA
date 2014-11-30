@@ -164,11 +164,13 @@ INSERT INTO `matricula` (`codigo_aluno`,`codigo_disciplina`) VALUES
 
 DROP TABLE IF EXISTS `prova`;
 CREATE TABLE `prova` (
+  `codigo_prova` int(11) NOT NULL AUTO_INCREMENT,
   `codigo_disciplina` int(11) NOT NULL,
   `codigo_aluno` int(11) NOT NULL,
-  `nota` float NOT NULL,
+  `nota` float NULL,
+  `peso` float NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`codigo_disciplina`,`codigo_aluno`)
+  PRIMARY KEY (`codigo_prova`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -176,8 +178,8 @@ CREATE TABLE `prova` (
 --
 
 /*!40000 ALTER TABLE `prova` DISABLE KEYS */;
-INSERT INTO `prova` (`codigo_disciplina`,`codigo_aluno`,`nota`,`nome`) VALUES 
- (1,1,10,'teste');
+INSERT INTO `prova` (`codigo_disciplina`,`codigo_aluno`,`nota`,`peso`,`nome`) VALUES 
+ (1,1,10,10,'teste');
 /*!40000 ALTER TABLE `prova` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

@@ -100,14 +100,16 @@ public class Base implements Closeable {
 
     public Disciplina montaDiscplina(int codAluno, int codDisciplina, Disciplina disc) throws SQLException {
 	PreparedStatement psProva = con
-		.prepareStatement("SELECT * FROM prova p WHERE codigo_aluno = ? AND codigo_disciplina = ?");
+		.prepareStatement("SELECT nota, peso, nome FROM prova p WHERE codigo_aluno = ? AND codigo_disciplina = ?");
 	psProva.setInt(1, codAluno);
 	psProva.setInt(2, codDisciplina);
 
 	ResultSet fetchedProvas = psProva.executeQuery();
 	fetchedProvas.beforeFirst();
 	while (fetchedProvas.next()) {
-	    Prova prova = new Prova(fetchedProvas.getFloat("nota"), fetchedProvas.getString("nome"));
+	    Prova prova = new Prova(fetchedProvas.getFloat("nota"), //
+		    fetchedProvas.getFloat("peso"),//
+		    fetchedProvas.getString("nome"));
 	    disc.addProva(prova);
 	}
 

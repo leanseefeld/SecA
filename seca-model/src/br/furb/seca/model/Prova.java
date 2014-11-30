@@ -6,10 +6,6 @@ public class Prova {
     private float peso;
     private String nomeAvaliacao;
 
-    public Prova() {
-	this.nomeAvaliacao = "";
-    }
-
     public Prova(float nota, String nomeAvaliacao) {
 	this.nota = nota;
 	this.nomeAvaliacao = nomeAvaliacao;
@@ -26,7 +22,7 @@ public class Prova {
     }
 
     public String getNomeAvaliacao() {
-	return nomeAvaliacao;
+	return nomeAvaliacao == null ? "" : nomeAvaliacao;
     }
 
     public float getPeso() {
