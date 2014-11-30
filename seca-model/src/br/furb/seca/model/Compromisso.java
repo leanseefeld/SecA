@@ -9,8 +9,10 @@ public class Compromisso {
     private long codigo;
     private String titulo;
     private String descricao;
-    private Date dataInicio;
-    private Date dataFim;
+    private long dataInicioMili;
+    private long dataFimMili;
+    private transient Date dataInicio;
+    private transient Date dataFim;
     private boolean isDiaTodo;
     private List<Integer> lembretes;
     private Disciplina disciplina;
@@ -44,18 +46,26 @@ public class Compromisso {
     }
 
     public Date getDataInicio() {
+	if (dataInicio == null && dataInicioMili != 0) {
+	    return dataInicio = new Date(dataInicioMili);
+	}
 	return dataInicio;
     }
 
     public void setDataInicio(Date dataInicio) {
+	this.dataInicioMili = dataInicio == null ? 0 : dataInicio.getTime();
 	this.dataInicio = dataInicio;
     }
 
     public Date getDataFim() {
+	if (dataFim == null && dataFimMili != 0) {
+	    return dataFim = new Date(dataFimMili);
+	}
 	return dataFim;
     }
 
     public void setDataFim(Date dataFim) {
+	this.dataFimMili = dataFim == null ? 0 : dataFim.getTime();
 	this.dataFim = dataFim;
     }
 
