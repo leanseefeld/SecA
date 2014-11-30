@@ -3,7 +3,7 @@ package br.furb.seca.model;
 public class Horario {
 
     private int codigo;
-    private Disciplina disciplina;
+    private transient Disciplina disciplina;
     private Periodo periodo;
     private DiaSemana diaSemana;
     private String sala;

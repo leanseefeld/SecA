@@ -134,7 +134,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    values.put("fk_professor", disciplina.getProfessor().getCodigo());
 	    db.insert("DISCIPLINA", null, values);
 
-	    insertHorarios(db, disciplina.getHorarios());
+	    insertHorarios(db, disciplina.getHorarios(), disciplina);
 	}
     }
 
@@ -145,11 +145,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	db.insert("PROFESSOR", null, values);
     }
 
-    private void insertHorarios(SQLiteDatabase db, Collection<Horario> horarios) {
+    private void insertHorarios(SQLiteDatabase db, Collection<Horario> horarios, Disciplina disciplina) {
 	for (Horario horario : horarios) {
+	    horario.setDisciplina(disciplina);
 	    ContentValues values = new ContentValues();
 	    values.put("nrPeriodo", horario.getPeriodo().getCodigo());
-	    values.put("fk_disciplina", horario.getDisciplina().getCodigo());
+	    values.put("fk_disciplina", disciplina.getCodigo());
 	    values.put("nrDiaSemana", horario.getDiaSemana().getCodigo());
 	    values.put("dsSala", horario.getSala());
 	    db.insert("HORARIO", null, values);
