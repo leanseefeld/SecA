@@ -32,18 +32,7 @@ CREATE TABLE `aluno` (
   `senha` varchar(255) NOT NULL,
   `nome_completo` varchar(45) NOT NULL,
   PRIMARY KEY (`codigo_aluno`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `seca`.`aluno`
---
-
-/*!40000 ALTER TABLE `aluno` DISABLE KEYS */;
-INSERT INTO `aluno` (`codigo_aluno`,`nome_usuario`,`senha`,`nome_completo`) VALUES 
- (1,'teste','123','teste'),
- (2,'teste2','123','teste');
-/*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `seca`.`compromisso`
@@ -52,24 +41,15 @@ INSERT INTO `aluno` (`codigo_aluno`,`nome_usuario`,`senha`,`nome_completo`) VALU
 DROP TABLE IF EXISTS `compromisso`;
 CREATE TABLE `compromisso` (
   `codigo_comp` int(11) NOT NULL AUTO_INCREMENT,
-  `codigo_aluno` int(11) DEFAULT NULL,
-  `data_ini` datetime DEFAULT NULL,
-  `data_fim` datetime DEFAULT NULL,
+  `codigo_aluno` int(11) NOT NULL,
+  `data_ini` datetime NOT NULL,
+  `data_fim` datetime NOT NULL,
+  `dia_todo` TINYINT(1) NOT NULL DEFAULT 0,
   `titulo` varchar(45) DEFAULT NULL,
-  `descricao` varchar(45) DEFAULT NULL,
+  `descricao` varchar(512) DEFAULT NULL,
   `codigo_disciplina` int(11) DEFAULT NULL,
   PRIMARY KEY (`codigo_comp`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `seca`.`compromisso`
---
-
-/*!40000 ALTER TABLE `compromisso` DISABLE KEYS */;
-INSERT INTO `compromisso` (`codigo_comp`,`codigo_aluno`,`data_ini`,`data_fim`,`titulo`,`descricao`,`codigo_disciplina`) VALUES 
- (1,1,'2014-10-01 00:00:00','2014-10-03 00:00:00','teste','teste',1);
-/*!40000 ALTER TABLE `compromisso` ENABLE KEYS */;
-
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `seca`.`disciplina`
@@ -81,17 +61,7 @@ CREATE TABLE `disciplina` (
   `nome` varchar(255) NOT NULL,
   `professor` varchar(255) NOT NULL,
   PRIMARY KEY (`codigo_disciplina`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `seca`.`disciplina`
---
-
-/*!40000 ALTER TABLE `disciplina` DISABLE KEYS */;
-INSERT INTO `disciplina` (`codigo_disciplina`,`nome`,`professor`) VALUES 
- (1,'teste','teste');
-/*!40000 ALTER TABLE `disciplina` ENABLE KEYS */;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `seca`.`horario`
@@ -99,21 +69,12 @@ INSERT INTO `disciplina` (`codigo_disciplina`,`nome`,`professor`) VALUES
 
 DROP TABLE IF EXISTS `horario`;
 CREATE TABLE `horario` (
-  `codigo_disciplina` int(11) DEFAULT NULL,
-  `periodo` int(11) DEFAULT NULL,
-  `dia_semana` int(11) DEFAULT NULL,
-  `sala` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `seca`.`horario`
---
-
-/*!40000 ALTER TABLE `horario` DISABLE KEYS */;
-INSERT INTO `horario` (`codigo_disciplina`,`periodo`,`dia_semana`,`sala`) VALUES 
- (1,1,2,'teste');
-/*!40000 ALTER TABLE `horario` ENABLE KEYS */;
-
+  `codigo_disciplina` int(11) NOT NULL,
+  `periodo` int(2) NOT NULL,
+  `dia_semana` int(2) NOT NULL,
+  `sala` varchar(60) NOT NULL,
+  PRIMARY KEY (`codigo_disciplina`, `periodo`, `dia_semana`, `sala`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `seca`.`lembrete`
@@ -125,7 +86,7 @@ CREATE TABLE `lembrete` (
   `codigo_compromisso` int(11) NOT NULL,
   `minutos_antes` int(11) DEFAULT NULL,
   PRIMARY KEY (`codigo_lembrete`,`codigo_compromisso`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `seca`.`lembrete`
@@ -146,17 +107,7 @@ CREATE TABLE `matricula` (
   `codigo_aluno` int(11) NOT NULL,
   `codigo_disciplina` int(11) NOT NULL,
   PRIMARY KEY (`codigo_aluno`,`codigo_disciplina`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `seca`.`matricula`
---
-
-/*!40000 ALTER TABLE `matricula` DISABLE KEYS */;
-INSERT INTO `matricula` (`codigo_aluno`,`codigo_disciplina`) VALUES 
- (1,1);
-/*!40000 ALTER TABLE `matricula` ENABLE KEYS */;
-
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `seca`.`prova`
@@ -171,16 +122,7 @@ CREATE TABLE `prova` (
   `peso` float NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codigo_prova`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `seca`.`prova`
---
-
-/*!40000 ALTER TABLE `prova` DISABLE KEYS */;
-INSERT INTO `prova` (`codigo_disciplina`,`codigo_aluno`,`nota`,`peso`,`nome`) VALUES 
- (1,1,10,10,'teste');
-/*!40000 ALTER TABLE `prova` ENABLE KEYS */;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
