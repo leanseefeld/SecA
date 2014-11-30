@@ -18,7 +18,7 @@ public class Disciplina {
     }
 
     public Disciplina(String nome, String nomeProfessor) {
-	this(nomeProfessor, new Professor(-1, nomeProfessor));
+	this(nome, new Professor(-1, nomeProfessor));
     }
 
     public Disciplina(String nome, Professor professor) {
