@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +30,9 @@ public class NotasFragment extends MyFragment {
     private int[] to = new int[] { android.R.id.text1, android.R.id.text2 };
 
     public NotasFragment() {
-	this(null);
+	this(new Disciplina());
     }
 
-    public NotasFragment() {
-	super(R.layout.fragment_notas);
-	this.disciplina = new Disciplina();
-    }
-    
     public NotasFragment(Disciplina disciplina) {
 	super(R.layout.fragment_notas);
 	this.disciplina = disciplina;
@@ -44,7 +40,12 @@ public class NotasFragment extends MyFragment {
 
     @Override
     void Atualizar() {
-	Toast.makeText(this.getActivity(), "Sincronizando notas", Toast.LENGTH_SHORT).show();
+	Disciplina disc = controller.buscarDisciplina(disciplina.getCodigo());
+	if (disc != null) {
+	    this.disciplina = disc;
+	    atualizaNotas(this.getActivity());
+	}
+	Toast.makeText(this.getActivity(), "Notas sincronizadas", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -60,16 +61,15 @@ public class NotasFragment extends MyFragment {
 	}
 
 	View v = super.onCreateView(inflater, container, savedInstanceState);
-	listViewNotas = (ListView) v.findViewById(R.id.notas_disciplina);
 	controller = new Controller(v.getContext());
-	listViewNotas.setAdapter(new SimpleAdapter(v.getContext(), listarNotas(), android.R.layout.simple_list_item_2,
-		from, to));
-
+	listViewNotas = (ListView) v.findViewById(R.id.notas_disciplina);
 	nome_disciplina = (TextView) v.findViewById(R.id.nome_disciplina);
 	media_notas = (TextView) v.findViewById(R.id.media_notas);
 
-	nome_disciplina.setText(disciplina.getNome());
+	nome_disciplina.setText(this.disciplina.getNome());
 	media_notas.setText(controller.calcularMedia(disciplina.getProvas()));
+
+	atualizaNotas(v.getContext());
 
 	return v;
     }
@@ -81,15 +81,17 @@ public class NotasFragment extends MyFragment {
 	}
     }
 
-    public List<Map<String, String>> listarNotas() {
+    private void atualizaNotas(Context c) {
+	listViewNotas.setAdapter(new SimpleAdapter(c, listarNotas(), android.R.layout.simple_list_item_2, from, to));
+    }
+
+    private List<Map<String, String>> listarNotas() {
 	List<Map<String, String>> notas = new ArrayList<Map<String, String>>();
-	if (this.disciplina != null) {
-	    for (Prova prova : this.disciplina.getProvas()) {
-		Map<String, String> nota = new HashMap<String, String>();
-		nota.put("NomePeso", prova.getNomeAvaliacao() + " - Peso:" + prova.getPeso());
-		nota.put("Nota", String.valueOf(prova.getNota()));
-		notas.add(nota);
-	    }
+	for (Prova prova : this.disciplina.getProvas()) {
+	    Map<String, String> nota = new HashMap<String, String>();
+	    nota.put("NomePeso", prova.getNomeAvaliacao() + " - Peso:" + prova.getPeso());
+	    nota.put("Nota", String.valueOf(prova.getNota()));
+	    notas.add(nota);
 	}
 	return notas;
     }
