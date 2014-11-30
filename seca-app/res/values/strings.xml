@@ -5,7 +5,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_compromissos">Compromissos</string>
     <string name="title_disciplinas">Disciplinas</string>
-    <string name="title_grade_horaria">Grade Horaria</string>
+    <string name="title_grade_horaria">Grade Horária</string>
     <string name="title_notas">Notas</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -15,15 +15,16 @@
     <string name="excluir">Excluir</string>
     <string name="proximas_aulas">Próximas Aulas</string>
     <string name="proximos_compromissos">Próximos Compromissos</string>
-    <string name="descricao">Descricao</string>
-    <string name="inicio_do_compromisso">Inicio do Compromisso</string>
-    <string name="fim_do_compromisso">Fim do Compromisso</string>
-    <string name="lembretes_optional">Lembretes(optional)</string>
-    <string name="disciplinas_opcional">Disciplinas(opcional)</string>
+    <string name="descricao">Descrição</string>
+    <string name="inicio_do_compromisso">Início</string>
+    <string name="fim_do_compromisso">Fim</string>
+    <string name="lembretes_opcional">Lembretes</string>
+    <string name="disciplina_opcional">Disciplina</string>
     <string name="title_activity_main_activityxxxx">MainActivityxxxx</string>
     <string name="hello_world">Hello world!</string>
 
     <string name="action_refresh">Refresh</string>
-    <string name="error_sem_conexao">Sem conexão. Tente novamente mais tarde!</string>
+    <string name="error_sem_conexao">Sem conexão. Volte a tentar mais tarde!</string>
+    <string name="sincronizacao_sucedida">Você está atualizado!</string>
 
 </resources>

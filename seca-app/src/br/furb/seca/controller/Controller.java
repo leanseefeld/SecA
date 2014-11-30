@@ -36,25 +36,27 @@ public class Controller {
 
     private DatabaseHelper dbHelper;
     private Context context;
-    private Aluno currentAluno;
+    private static Aluno currentAluno = new Aluno("teste", "123"); // TODO: implementar tela de login e remover isso
 
     public Controller(Context context) {
 	this.context = context;
 	this.dbHelper = new DatabaseHelper(context);
-	setCurrentAluno(new Aluno("teste", "123")); // TODO: implementar tela de login e remover isso
     }
 
-    public Aluno getCurrentAluno() {
+    public static Aluno getCurrentAluno() {
 	return currentAluno;
     }
 
-    public void setCurrentAluno(Aluno currentAluno) {
-	this.currentAluno = currentAluno;
+    public static void setCurrentAluno(Aluno currentAluno) {
+	Controller.currentAluno = currentAluno;
     }
 
     public void syncSucceeded(Aluno aluno) {
 	dbHelper.truncateTables();
 	dbHelper.insertDataFromAluno(aluno);
+	Toast.makeText(context, R.string.sincronizacao_sucedida, Toast.LENGTH_LONG).show();
+
+	setCurrentAluno(aluno);
 	// TODO: notificar Activity para atualizar os dados
     }
 
@@ -455,10 +457,9 @@ public class Controller {
 	}
 	return compromissos;
     }
-    
-    public String calcularMedia(List<Prova> provas)
-    {
-	if(provas.isEmpty())
+
+    public String calcularMedia(List<Prova> provas) {
+	if (provas.isEmpty())
 	    return "-";
 	float notaTotal = 0;
 	float pesoTotal = 0;
@@ -466,9 +467,9 @@ public class Controller {
 	    notaTotal += (prova.getNota() * prova.getPeso());
 	    pesoTotal += prova.getPeso();
 	}
-	
+
 	float media = notaTotal / pesoTotal;
-	
+
 	DecimalFormat df = new DecimalFormat("0.00");
 	df.setRoundingMode(RoundingMode.DOWN);
 	return df.format(media);

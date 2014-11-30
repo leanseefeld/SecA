@@ -23,10 +23,10 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
     private MyFragment fragmentAtual;
     private Controller controller;
 
-    private MyFragment[] appFragments = { new DashboardFragment(0),  
-	    new GradeHorariaFragment(1), 
-	    new DisciplinasFragment(2), 
-	    new CompromissosFragment(4) };
+    private MyFragment[] appFragments = { new DashboardFragment(0), //  
+	    new GradeHorariaFragment(1), //
+	    new DisciplinasFragment(2), //
+	    new CompromissosFragment(3) };
     private int lastPosition = 0;
 
     @Override
