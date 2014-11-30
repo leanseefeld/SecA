@@ -21,7 +21,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
      */
     private CharSequence mTitle;
     private MyFragment fragmentAtual;
-    Controller c;
+    private Controller controller;
 
     private MyFragment[] appFragments = { new DashboardFragment(0),  
 	    new GradeHorariaFragment(1), 
@@ -41,17 +41,14 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	// Set up the drawer.
 	mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
-	c = new Controller(this);
-	c.sincronizarWebService((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
-    }
+	controller = new Controller(this);
+	if (savedInstanceState == null) {
+	    // ensure this callback ignores this transaction
+	    this.lastPosition = 0;
+	    getFragmentManager().beginTransaction().replace(R.id.container, appFragments[0]).commit();
 
-    @Override
-    protected void onStart() {
-	super.onStart();
-
-	// ensure this callback ignores this transaction
-	this.lastPosition = 0;
-	getFragmentManager().beginTransaction().replace(R.id.container, appFragments[0]).commit();
+	    controller.sincronizarWebService((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
+	}
     }
 
     @Override
@@ -116,7 +113,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
     @Override
     public void onAtualizar() {
-	c.sincronizarWebService((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
+	controller.sincronizarWebService((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
 	if (this.fragmentAtual != null)
 	    this.fragmentAtual.Atualizar();
     }
