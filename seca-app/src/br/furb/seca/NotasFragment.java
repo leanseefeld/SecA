@@ -27,6 +27,11 @@ public class NotasFragment extends MyFragment {
     private String[] from = new String[] { "Nota", "NomePeso" };
     private int[] to = new int[] { android.R.id.text1, android.R.id.text2 };
 
+    public NotasFragment() {
+	super(R.layout.fragment_notas);
+	this.disciplina = new Disciplina();
+    }
+    
     public NotasFragment(Disciplina disciplina) {
 	super(R.layout.fragment_notas);
 	this.disciplina = disciplina;
