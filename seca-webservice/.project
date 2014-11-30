@@ -3,6 +3,7 @@
 	<name>seca-webservice</name>
 	<comment></comment>
 	<projects>
+		<project>seca-model</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
