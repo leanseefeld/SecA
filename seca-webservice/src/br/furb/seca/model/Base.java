@@ -15,7 +15,7 @@ import java.sql.Statement;
  */
 public class Base implements Closeable {
 
-    private static final String CONNECTION_URL = "jdbc:mysql://localhost/seca?user=root&password=root";
+    private static final String CONNECTION_URL = "jdbc:mysql://localhost/seca?user=root&password=123456";
     private Connection con;
 
     public Base() throws SQLException {
@@ -24,7 +24,7 @@ public class Base implements Closeable {
 	} catch (ClassNotFoundException e) {
 	    throw new RuntimeException("Driver de conexão MySql não localizado", e);
 	}
-	con = DriverManager.getConnection(CONNECTION_URL, "root", "root");
+	con = DriverManager.getConnection(CONNECTION_URL);
     }
 
     public Aluno montaAluno(String usuario, String senha) {
@@ -98,7 +98,7 @@ public class Base implements Closeable {
 	return null;
     }
 
-    public Disciplina montaDiscplina(int codAluno, int codDisciplina, Disciplina d) throws SQLException {
+    public Disciplina montaDiscplina(int codAluno, int codDisciplina, Disciplina disc) throws SQLException {
 	PreparedStatement psProva = con
 		.prepareStatement("SELECT * FROM prova p WHERE codigo_aluno = ? AND codigo_disciplina = ?");
 	psProva.setInt(1, codAluno);
@@ -107,8 +107,8 @@ public class Base implements Closeable {
 	ResultSet fetchedProvas = psProva.executeQuery();
 	fetchedProvas.beforeFirst();
 	while (fetchedProvas.next()) {
-	    Prova p = new Prova(fetchedProvas.getFloat("nota"), fetchedProvas.getString("nome"));
-	    d.addProva(p);
+	    Prova prova = new Prova(fetchedProvas.getFloat("nota"), fetchedProvas.getString("nome"));
+	    disc.addProva(prova);
 	}
 
 	PreparedStatement psHorario = con.prepareStatement("SELECT * FROM horario h WHERE codigo_disciplina = ?");
@@ -117,14 +117,14 @@ public class Base implements Closeable {
 	ResultSet fetchedHorarios = psHorario.executeQuery();
 	fetchedHorarios.beforeFirst();
 	while (fetchedHorarios.next()) {
-	    Horario h = new Horario();
-	    h.setDiaSemana(DiaSemana.fromCodigo(fetchedHorarios.getInt("dia_semana")));
-	    h.setPeriodo(fetchedHorarios.getInt("periodo"));
-	    h.setSala(fetchedHorarios.getString("sala"));
-	    d.addHorario(h);
+	    Horario horario = new Horario();
+	    horario.setDiaSemana(DiaSemana.fromCodigo(fetchedHorarios.getInt("dia_semana")));
+	    horario.setPeriodo(fetchedHorarios.getInt("periodo"));
+	    horario.setSala(fetchedHorarios.getString("sala"));
+	    disc.addHorario(horario);
 	}
 
-	return d;
+	return disc;
     }
 
     public Compromisso salvaCompromisso(Compromisso comp, int codigoAluno) {
