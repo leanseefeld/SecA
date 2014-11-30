@@ -2,13 +2,11 @@ package br.furb.seca;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.View;
-import android.widget.Toast;
-import br.furb.seca.R.menu;
 import br.furb.seca.controller.Controller;
 
 public class MainActivity extends Activity implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -44,14 +42,14 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 	mNavigationDrawerFragment.setUp(R.id.navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout));
 
 	c = new Controller(this);
-	c.sincronizarWebService();
+	c.sincronizarWebService((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
     }
 
     @Override
     protected void onStart() {
 	super.onStart();
 
-	// ensure this callback ignore this transaction
+	// ensure this callback ignores this transaction
 	this.lastPosition = 0;
 	getFragmentManager().beginTransaction().replace(R.id.container, appFragments[0]).commit();
     }
@@ -118,7 +116,7 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
 
     @Override
     public void onAtualizar() {
-	c.sincronizarWebService();
+	c.sincronizarWebService((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
 	if (this.fragmentAtual != null)
 	    this.fragmentAtual.Atualizar();
     }

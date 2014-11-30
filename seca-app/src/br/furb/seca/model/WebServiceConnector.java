@@ -12,15 +12,23 @@ import com.google.gson.Gson;
 
 public class WebServiceConnector {
 
-    private static String NAMESPACE = "";
-    private static String METHOD_NAME = "";
+    private static String NAMESPACE = "http://service.seca.furb.br";
+    private static String METHOD_NAME = "consultar";
     private static String SOAP_ACTION = "";
+    private String url;
+
+    public WebServiceConnector(String url) {
+	if (url == null || url.trim().isEmpty()) {
+	    throw new IllegalArgumentException("Náo é possível conectar. Onde está o Web Service, desenvolvedor?");
+	}
+	this.url = url;
+    }
 
     public Aluno carregarAluno(Aluno aluno) throws IOException, XmlPullParserException {
 	// TODO: remover
-	if (true) {
+	/*if (false) {
 	    return createMockAluno(aluno);
-	}
+	}*/
 
 	SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
 	request.addProperty("Usuario", aluno.getUsuario());
@@ -36,7 +44,6 @@ public class WebServiceConnector {
 
 	Gson gson = new Gson();
 	return gson.fromJson(responseJson, Aluno.class);
-
     }
 
     private Aluno createMockAluno(Aluno aluno) {
@@ -47,7 +54,7 @@ public class WebServiceConnector {
 	Date dataInicial = now.getTime();
 	now.add(Calendar.HOUR, 5);
 	Date dataFinal = now.getTime();
-	
+
 	Compromisso compAllDay = new Compromisso();
 	compAllDay.setCodigo(983);
 	compAllDay.setTitulo("Comp Mock 01");
@@ -109,9 +116,8 @@ public class WebServiceConnector {
 	return mock;
     }
 
-    private String getURL() {
-	// TODO Auto-generated method stub
-	return "";
+    public String getURL() {
+	return url;
     }
 
 }

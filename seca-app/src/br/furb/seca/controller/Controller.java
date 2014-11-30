@@ -5,7 +5,6 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -14,8 +13,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
+import br.furb.seca.R;
 import br.furb.seca.model.Aluno;
 import br.furb.seca.model.Compromisso;
 import br.furb.seca.model.DatabaseHelper;
@@ -25,6 +27,7 @@ import br.furb.seca.model.Horario;
 import br.furb.seca.model.Professor;
 import br.furb.seca.model.Prova;
 import br.furb.seca.model.WebServiceConnector;
+import br.furb.seca.model.WebServiceTask;
 
 public class Controller {
 
@@ -33,32 +36,47 @@ public class Controller {
 
     private DatabaseHelper dbHelper;
     private Context context;
+    private Aluno currentAluno;
 
     public Controller(Context context) {
 	this.context = context;
 	this.dbHelper = new DatabaseHelper(context);
+	setCurrentAluno(new Aluno("teste", "123")); // TODO: implementar tela de login e remover isso
     }
 
-    public void sincronizarWebService() {
-	/* talvez passar a URL do webservice aqui. De qualquer forma, 
-	 * pegar do Android.manifest ou outro lugar que não seja hard coded */
-	WebServiceConnector wsConnector = new WebServiceConnector();
-	Aluno aluno = null; // TODO: obter aluno tentando logar ou logado
-	aluno = new Aluno(0, "usuario123", "Usuário Um Dois Três", "mortadela1".getBytes());
-	Aluno alunoRemoto;
-	try {
-	    alunoRemoto = wsConnector.carregarAluno(aluno);
-	} catch (Exception e) {
-	    String message = "Não foi possível sincronizar os dados: " + e.getMessage();
-	    Toast toast = Toast.makeText(context, message, Toast.LENGTH_LONG);
-	    toast.show();
-	    Log.e("SecA-sync", message, e);
+    public Aluno getCurrentAluno() {
+	return currentAluno;
+    }
+
+    public void setCurrentAluno(Aluno currentAluno) {
+	this.currentAluno = currentAluno;
+    }
+
+    public void syncSucceeded(Aluno aluno) {
+	dbHelper.truncateTables();
+	dbHelper.insertDataFromAluno(aluno);
+	// TODO: notificar Activity para atualizar os dados
+    }
+
+    public void syncFailed(String message) {
+	Toast toast = Toast.makeText(context, "Não foi possível sincronizar os dados: " + message, Toast.LENGTH_LONG);
+	//	toast.setView(callbackView);
+	toast.show();
+    }
+
+    public void sincronizarWebService(ConnectivityManager connMgr) {
+	NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+	if (networkInfo == null || !networkInfo.isConnected()) {
+	    Toast.makeText(context, R.string.error_sem_conexao, Toast.LENGTH_SHORT).show();
 	    return;
 	}
 
-	// TODO: persistir os dados no banco
-	dbHelper.truncateTables();
-	dbHelper.insertDataFromAluno(alunoRemoto);
+	// TODO: pegar do Android.manifest ou outro lugar que não seja hard coded
+	WebServiceConnector wsConnector = new WebServiceConnector(
+		"http://10.1.1.3:8080/seca-webservice/services/SecA?wsdl");
+
+	WebServiceTask wsTask = new WebServiceTask(wsConnector, this);
+	wsTask.execute(getCurrentAluno());
     }
 
     @Deprecated
