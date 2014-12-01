@@ -59,7 +59,7 @@ DROP TABLE IF EXISTS `disciplina`;
 CREATE TABLE `disciplina` (
   `codigo_disciplina` int(11) NOT NULL,
   `nome` varchar(255) NOT NULL,
-  `professor` varchar(255) NOT NULL,
+  `codigo_professor` int(11) NOT NULL,
   PRIMARY KEY (`codigo_disciplina`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -122,6 +122,17 @@ CREATE TABLE `prova` (
   `peso` float NOT NULL,
   `nome` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`codigo_prova`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `seca`.`professor`
+--
+
+DROP TABLE IF EXISTS `professor`;
+CREATE TABLE `professor` (
+  `codigo_professor` int(11) NOT NULL,
+  `nome_professor` varchar(255) NOT NULL,
+  PRIMARY KEY (`codigo_professor`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;

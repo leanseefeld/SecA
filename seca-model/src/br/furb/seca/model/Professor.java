@@ -6,9 +6,14 @@ public class Professor implements LazyLoadable {
     private String nome;
     private transient boolean loaded;
 
+    public Professor(int codigo) {
+	this(codigo, null);
+    }
+
     public Professor(int codigo, String nome) {
 	setCodigo(codigo);
 	setNome(nome);
+	setLoaded(nome != null);
     }
 
     public int getCodigo() {

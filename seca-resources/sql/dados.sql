@@ -21,16 +21,27 @@ INSERT INTO aluno (codigo_aluno, nome_usuario, senha, nome_completo) VALUES (2, 
 INSERT INTO aluno (codigo_aluno, nome_usuario, senha, nome_completo) VALUES (3, "gsabel", "123456", "Gustavo Sabel");
 INSERT INTO aluno (codigo_aluno, nome_usuario, senha, nome_completo) VALUES (4, "nomedeusuariogigante", "000010", "Mendonça Aécio Ubiporã Lêtche Nome-Grande");
 
+-- Popular professor
+
+INSERT INTO professor (codigo_professor, nome_professor) VALUES (1, "Paulo Fernando da Silva");
+INSERT INTO professor (codigo_professor, nome_professor) VALUES (2, "Everaldo Artur Grahl");
+INSERT INTO professor (codigo_professor, nome_professor) VALUES (3, "Cíntia Aparecida da Luz Silva Pereira Goes");
+INSERT INTO professor (codigo_professor, nome_professor) VALUES (4, "Evandro Felin Londero");
+INSERT INTO professor (codigo_professor, nome_professor) VALUES (5, "José Roque Voltolini da Silva");
+INSERT INTO professor (codigo_professor, nome_professor) VALUES (6, "Aurélio Hoppe");
+INSERT INTO professor (codigo_professor, nome_professor) VALUES (7, "Miguel Alexandre Wisintainer");
+INSERT INTO professor (codigo_professor, nome_professor) VALUES (8, "Joyce Martins");
+
 -- Popular disciplina
 
-INSERT INTO disciplina (codigo_disciplina, nome, professor) VALUES (1, "Sistemas Distribuídos", "Paulo Fernando da Silva"); 
-INSERT INTO disciplina (codigo_disciplina, nome, professor) VALUES (2, "Processo de Software I", "Everaldo Artur Grahl");
-INSERT INTO disciplina (codigo_disciplina, nome, professor) VALUES (3, "Desafios Sociais e Contemporâneos", "Cíntia Aparecida da Luz Silva Pereira Goes");
-INSERT INTO disciplina (codigo_disciplina, nome, professor) VALUES (4, "Álgebra Linear para Computação", "Evandro Felin Londero");
-INSERT INTO disciplina (codigo_disciplina, nome, professor) VALUES (5, "Linguagens de Programação", "José Roque Voltolini da Silva");
-INSERT INTO disciplina (codigo_disciplina, nome, professor) VALUES (6, "Teoria dos Grafos", "Aurélio Hoppe");
-INSERT INTO disciplina (codigo_disciplina, nome, professor) VALUES (7, "Arquitetura de Computadores", "Miguel Alexandre Wisintainer");
-INSERT INTO disciplina (codigo_disciplina, nome, professor) VALUES (8, "Linguagens Formais", "Joyce Martins");
+INSERT INTO disciplina (codigo_disciplina, nome, codigo_professor) VALUES (1, "Sistemas Distribuídos", 1); 
+INSERT INTO disciplina (codigo_disciplina, nome, codigo_professor) VALUES (2, "Processo de Software I", 2);
+INSERT INTO disciplina (codigo_disciplina, nome, codigo_professor) VALUES (3, "Desafios Sociais e Contemporâneos", 3);
+INSERT INTO disciplina (codigo_disciplina, nome, codigo_professor) VALUES (4, "Álgebra Linear para Computação", 4);
+INSERT INTO disciplina (codigo_disciplina, nome, codigo_professor) VALUES (5, "Linguagens de Programação", 5);
+INSERT INTO disciplina (codigo_disciplina, nome, codigo_professor) VALUES (6, "Teoria dos Grafos", 6);
+INSERT INTO disciplina (codigo_disciplina, nome, codigo_professor) VALUES (7, "Arquitetura de Computadores", 7);
+INSERT INTO disciplina (codigo_disciplina, nome, codigo_professor) VALUES (8, "Linguagens Formais", 8);
 
 -- Popular matricula (aluno 2 não possui matrículas)
 

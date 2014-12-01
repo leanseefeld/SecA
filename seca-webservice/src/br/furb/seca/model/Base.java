@@ -2,6 +2,7 @@ package br.furb.seca.model;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -9,13 +10,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author gabri_000
  */
 public class Base implements Closeable {
 
+    private static final String SELECT_NOT_LOADED_PROFESSORES = "SELECT * FROM professor WHERE codigo_professor IN %s";
     private static final String CONNECTION_URL = "jdbc:mysql://localhost/seca?user=root&password=123456";
+    private Map<Integer, Professor> professores = new HashMap<>();
     private Connection con;
 
     public Base() throws SQLException {
@@ -50,8 +58,8 @@ public class Base implements Closeable {
 		ResultSet fetchedMatricula = psMatricula.executeQuery();
 		fetchedMatricula.beforeFirst();
 		while (fetchedMatricula.next()) {
-		    Disciplina disc = new Disciplina(fetchedMatricula.getString("nome"),
-			    fetchedMatricula.getString("professor"));
+		    Disciplina disc = new Disciplina(fetchedMatricula.getString("nome"), // 
+			    getOrCreateLazyProfessor(fetchedMatricula.getInt("codigo_professor")));
 		    disc.setCodigo(fetchedMatricula.getInt("codigo_disciplina"));
 		    disc = montaDiscplina((int) aluno.getCodigo(), fetchedMatricula.getInt("codigo_disciplina"), disc);
 		    aluno.addDisciplina(disc);
@@ -90,6 +98,8 @@ public class Base implements Closeable {
 		    aluno.addCompromisso(comp);
 		}
 	    }
+
+	    loadProfessores();
 
 	    return aluno;
 	} catch (Exception e) {
@@ -150,6 +160,49 @@ public class Base implements Closeable {
 	    e.printStackTrace();
 	}
 	return null;
+    }
+
+    private Professor getOrCreateLazyProfessor(int codigo) {
+	Professor professor = professores.get(codigo);
+	if (professor == null) {
+	    professor = new Professor(codigo);
+	    professores.put(codigo, professor);
+	}
+	return professor;
+    }
+
+    private void loadProfessores() throws SQLException {
+	List<Integer> notLoadedCodigos = new ArrayList<>();
+	for (Professor professor : professores.values()) {
+	    if (!professor.isLoaded()) {
+		notLoadedCodigos.add(professor.getCodigo());
+	    }
+	}
+	if (!notLoadedCodigos.isEmpty()) {
+	    StringBuilder inClause = new StringBuilder("(");
+	    Iterator<Integer> codIt = notLoadedCodigos.iterator();
+	    do {
+		inClause.append(codIt.next());
+		if (codIt.hasNext()) {
+		    inClause.append(", ");
+		    continue;
+		}
+		break;
+	    } while (true);
+	    inClause.append(")");
+
+	    CallableStatement stmProfessores = con.prepareCall(String.format(SELECT_NOT_LOADED_PROFESSORES,
+		    inClause.toString()));
+	    ResultSet fetchedProfessores = stmProfessores.executeQuery();
+	    fetchedProfessores.beforeFirst();
+	    while (fetchedProfessores.next()) {
+		Professor professorToLoad = professores.get(fetchedProfessores.getInt("codigo_professor"));
+		if (professorToLoad != null) {
+		    professorToLoad.setNome(fetchedProfessores.getString("nome_professor"));
+		    professorToLoad.setLoaded(true);
+		}
+	    }
+	}
     }
 
     @Override
