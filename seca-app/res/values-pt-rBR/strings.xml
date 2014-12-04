@@ -21,7 +21,7 @@
     <string name="lembretes_opcional">Lembretes</string>
     <string name="disciplina_opcional">Disciplina</string>
 
-    <string name="action_refresh">Refresh</string>
+    <string name="action_refresh">Atualizar</string>
     <string name="error_sem_conexao">Sem conexão. Volte a tentar mais tarde!</string>
     <string name="sincronizacao_sucedida">Você está atualizado!</string>
     
