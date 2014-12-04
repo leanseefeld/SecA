@@ -70,13 +70,12 @@ public class DashboardCompromissoListAdapter extends ArrayAdapter<Compromisso> {
 	int mes = cal.get(Calendar.MONTH);
 	int hora = cal.get(Calendar.HOUR);
 	int minuto = cal.get(Calendar.MINUTE);
-	
+
 	if (cal.get(Calendar.AM_PM) == Calendar.PM) {
 	    hora += 12;
 	}
-	
-	//TODO: Tirar o "&& false"
-	if (ehDiaTodo && false) {
+
+	if (ehDiaTodo) {
 	    dataSaida = String.format("%s, %02d/%02d", diaSemana, dia, mes);
 	} else {
 	    dataSaida = String.format("%s, %02d/%02d - %02d:%02d", diaSemana, dia, mes, hora, minuto);
