@@ -80,6 +80,7 @@ public class Base implements Closeable {
 		    comp.setDataFim(fetchedCompromissos.getDate("data_fim"));
 		    comp.setDataInicio(fetchedCompromissos.getDate("data_ini"));
 		    comp.setTitulo(fetchedCompromissos.getString("titulo"));
+		    comp.setDiaTodo(fetchedCompromissos.getInt("dia_todo") != 0);
 		    if (fetchedCompromissos.getString("nome") != null) {
 			Disciplina disc = new Disciplina(fetchedCompromissos.getString("nome"),
 				fetchedCompromissos.getString("professor"));
