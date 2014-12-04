@@ -35,12 +35,12 @@ public class DashboardFragment extends MyFragment {
 	listViewHorarios = (ListView) v.findViewById(R.id.lista_horarios);
 	ListViewCompromissos = (ListView) v.findViewById(R.id.compromissos_dashboard);
 
-	Atualizar(v.getContext());
+	atualizar(v.getContext());
 
 	return v;
     }
 
-    private void Atualizar(Context c) {
+    private void atualizar(Context c) {
 	listViewHorarios.setAdapter(new DashboardHorarioListAdapter(c, controller.buscarProximosHorariosFormatados(2)));
 
 	try {
@@ -57,7 +57,7 @@ public class DashboardFragment extends MyFragment {
     }
 
     @Override
-    void Atualizar() {
-	this.Atualizar(this.getActivity());
+    public void atualizar() {
+	this.atualizar(this.getActivity());
     }
 }

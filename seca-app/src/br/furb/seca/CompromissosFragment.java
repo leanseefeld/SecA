@@ -207,19 +207,19 @@ public class CompromissosFragment extends MyFragment {
     }
 
     /*private List<Map<String, String>> getUnidadesTempo() {
-	List<Map<String, String>> unidades = new ArrayList<Map<String, String>>();
-	HashMap<String, String> unidade = new HashMap<String, String>();
-	unidade.put("Valor", "Minutos");
-	unidades.add(unidade);
+    List<Map<String, String>> unidades = new ArrayList<Map<String, String>>();
+    HashMap<String, String> unidade = new HashMap<String, String>();
+    unidade.put("Valor", "Minutos");
+    unidades.add(unidade);
 
-	unidade = new HashMap<String, String>();
-	unidade.put("Valor", "Horas");
-	unidades.add(unidade);
+    unidade = new HashMap<String, String>();
+    unidade.put("Valor", "Horas");
+    unidades.add(unidade);
 
-	unidade = new HashMap<String, String>();
-	unidade.put("Valor", "Dias");
-	unidades.add(unidade);
-	return unidades;
+    unidade = new HashMap<String, String>();
+    unidade.put("Valor", "Dias");
+    unidades.add(unidade);
+    return unidades;
     }*/
 
     private List<Map<String, String>> getDisciplinas() {
@@ -383,7 +383,7 @@ public class CompromissosFragment extends MyFragment {
     }
 
     @Override
-    void Atualizar() {
+    public void atualizar() {
 	//Do Nothing
     }
 

@@ -111,8 +111,6 @@ public class MainActivity extends Activity implements NavigationDrawerFragment.N
     @Override
     public void onAtualizar() {
 	controller.sincronizarWebService((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE));
-	if (this.fragmentAtual != null)
-	    this.fragmentAtual.Atualizar();
     }
 
 }

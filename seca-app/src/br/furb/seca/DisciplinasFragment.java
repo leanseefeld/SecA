@@ -5,7 +5,6 @@ import java.util.List;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -40,7 +39,7 @@ public class DisciplinasFragment extends MyFragment implements OnItemClickListen
 
 	atualizaDisciplinas(v.getContext());
 
-//	fragmentNotas = null;
+	//	fragmentNotas = null;
 
 	return v;
     }
@@ -59,9 +58,9 @@ public class DisciplinasFragment extends MyFragment implements OnItemClickListen
     }
 
     @Override
-    void Atualizar() {
+    public void atualizar() {
 	if (fragmentNotas != null) {
-	    fragmentNotas.Atualizar();
+	    fragmentNotas.atualizar();
 	}
 	atualizaDisciplinas(this.getActivity());
     }

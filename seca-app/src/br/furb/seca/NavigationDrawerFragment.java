@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer. See the <a
@@ -97,11 +96,9 @@ public class NavigationDrawerFragment extends Fragment {
 	    }
 	});
 	mDrawerListView.setAdapter(new ArrayAdapter<String>(getActionBar().getThemedContext(),
-		android.R.layout.simple_list_item_activated_1, android.R.id.text1, 
-		new String[] { getString(R.string.title_dashboard),  
-			getString(R.string.title_grade_horaria), 
-			getString(R.string.title_disciplinas), 
-			getString(R.string.title_compromissos), }));
+		android.R.layout.simple_list_item_activated_1, android.R.id.text1, new String[] {
+			getString(R.string.title_dashboard), getString(R.string.title_grade_horaria),
+			getString(R.string.title_disciplinas), getString(R.string.title_compromissos), }));
 	mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
 
 	return mDrawerListView;
@@ -246,7 +243,7 @@ public class NavigationDrawerFragment extends Fragment {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-	
+
 	if (mDrawerToggle.onOptionsItemSelected(item)) {
 	    return true;
 	}
@@ -267,7 +264,7 @@ public class NavigationDrawerFragment extends Fragment {
 
 	return super.onOptionsItemSelected(item);
     }
-    
+
     /**
      * Per the navigation drawer design guidelines, updates the action bar to show the global app
      * 'context', rather than just what's in the current screen.
@@ -292,7 +289,7 @@ public class NavigationDrawerFragment extends Fragment {
 	 * Called when an item in the navigation drawer is selected.
 	 */
 	void onNavigationDrawerItemSelected(int position);
-	
+
 	void onAtualizar();
     }
 }

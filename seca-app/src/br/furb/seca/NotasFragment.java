@@ -39,7 +39,7 @@ public class NotasFragment extends MyFragment {
     }
 
     @Override
-    void Atualizar() {
+    public void atualizar() {
 	Disciplina disc = controller.buscarDisciplina(disciplina.getCodigo());
 	if (disc != null) {
 	    this.disciplina = disc;

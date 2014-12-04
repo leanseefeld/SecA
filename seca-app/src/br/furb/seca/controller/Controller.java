@@ -17,6 +17,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 import android.widget.Toast;
+import br.furb.seca.MyFragment;
 import br.furb.seca.R;
 import br.furb.seca.model.Aluno;
 import br.furb.seca.model.Compromisso;
@@ -37,10 +38,19 @@ public class Controller {
     private DatabaseHelper dbHelper;
     private Context context;
     private static Aluno currentAluno = new Aluno("teste", "123"); // TODO: implementar tela de login e remover isso
+    public List<MyFragment> fragmentos = new ArrayList<MyFragment>();
 
     public Controller(Context context) {
 	this.context = context;
 	this.dbHelper = new DatabaseHelper(context);
+    }
+
+    public void addFragment(MyFragment f) {
+	fragmentos.add(f);
+    }
+
+    public void removeFragment(MyFragment f) {
+	fragmentos.add(f);
     }
 
     public static Aluno getCurrentAluno() {
@@ -57,7 +67,10 @@ public class Controller {
 	Toast.makeText(context, R.string.sincronizacao_sucedida, Toast.LENGTH_LONG).show();
 
 	setCurrentAluno(aluno);
-	// TODO: notificar Activity para atualizar os dados
+
+	for (MyFragment fragment : fragmentos) {
+	    fragment.atualizar();
+	}
     }
 
     public void syncFailed(String message) {
