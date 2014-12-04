@@ -9,7 +9,7 @@
         style="?android:listSeparatorTextViewStyle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Segunda Feira"
+        android:text="@string/segunda_feira"
         android:textSize="20sp" />
 
     <LinearLayout

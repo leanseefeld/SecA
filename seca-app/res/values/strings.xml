@@ -3,28 +3,48 @@
 
     <string name="app_name">SecA</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_compromissos">Compromissos</string>
-    <string name="title_disciplinas">Disciplinas</string>
-    <string name="title_grade_horaria">Grade Horária</string>
-    <string name="title_notas">Notas</string>
+    <string name="title_compromissos">Appointments</string>
+    <string name="title_disciplinas">Disciplines</string>
+    <string name="title_grade_horaria">Class Schedule</string>
+    <string name="title_notas">Grades</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="titulo">Título</string>
-    <string name="dia_inteiro">Dia Inteiro</string>
-    <string name="gravar">Gravar</string>
-    <string name="excluir">Excluir</string>
-    <string name="proximas_aulas">Próximas Aulas</string>
-    <string name="proximos_compromissos">Próximos Compromissos</string>
-    <string name="descricao">Descrição</string>
-    <string name="inicio_do_compromisso">Início</string>
-    <string name="fim_do_compromisso">Fim</string>
-    <string name="lembretes_opcional">Lembretes</string>
-    <string name="disciplina_opcional">Disciplina</string>
-    <string name="title_activity_main_activityxxxx">MainActivityxxxx</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="titulo">Title</string>
+    <string name="dia_inteiro">All day</string>
+    <string name="gravar">Write</string>
+    <string name="excluir">Delete</string>
+    <string name="proximas_aulas">Next Classes</string>
+    <string name="proximos_compromissos">Next Appointments</string>
+    <string name="descricao">Description</string>
+    <string name="inicio_do_compromisso">Begin</string>
+    <string name="fim_do_compromisso">End</string>
+    <string name="lembretes_opcional">Reminders</string>
+    <string name="disciplina_opcional">Discipline</string>
 
     <string name="action_refresh">Refresh</string>
-    <string name="error_sem_conexao">Sem conexão. Volte a tentar mais tarde!</string>
-    <string name="sincronizacao_sucedida">Você está atualizado!</string>
+    <string name="error_sem_conexao">No connection. Try again later!</string>
+    <string name="sincronizacao_sucedida">You\'re up to date!</string>
+    
+    <string name="endereco_webservice">http://192.168.0.57:8080/seca-webservice/services/SecA?wsdl</string>
+    
+    <string name="compromisso_data">Data</string>
+    
+    <string name="compromisso_hora">Hora</string>
+    
+    <string name="dashboard_disciplina">Disciplina</string>
+    
+    <string name="data_inicial">Data Inicial</string>
+    
+    <string name="data_final">Data Final</string>
+    
+    <string name="professor">Professor</string>
+    
+    <string name="dashboard_diasemana">"DiaSemana, "</string>
+    
+    <string name="periodo">Período</string>
+    
+    <string name="room">Sala</string>
+    
+    <string name="segunda_feira">Segunda Feira</string>
 
 </resources>

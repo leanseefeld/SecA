@@ -17,7 +17,7 @@
         style="@style/tam_texto_detalhes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Disciplina"
+        android:text="@string/dashboard_disciplina"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -25,7 +25,7 @@
         style="@style/tam_texto_detalhes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data Inicial"
+        android:text="@string/data_inicial"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -33,7 +33,7 @@
         style="@style/tam_texto_detalhes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Data Final"
+        android:text="@string/data_final"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
 </LinearLayout>

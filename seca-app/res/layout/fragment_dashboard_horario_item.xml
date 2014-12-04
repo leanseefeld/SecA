@@ -17,7 +17,7 @@
         style="@style/tam_texto_detalhes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Professor"
+        android:text="@string/professor"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="DiaSemana, "
+            android:text="@string/dashboard_diasemana"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingRight="10dp"
-            android:text="Periodo"
+            android:text="@string/periodo"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
@@ -48,7 +48,7 @@
             style="@style/tam_texto_detalhes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sala"
+            android:text="@string/room"
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </LinearLayout>
 
